@@ -1,0 +1,19 @@
+{
+"url":"http://release.keepwork.com/",
+"testScope":["signupTest","loginTest","domain"],
+"timeOut":60000,
+"accountfile":"account.txt",
+"reportpath":"",
+"sleepTime":2000,
+"loopNum":50,
+"emailconfigInfo": {
+  "server1":"mailgun",
+  "from":"dslhmily@gmail.com",
+  "to":"dslhmily@163.com",
+  "subject":"test-hello world ",
+  "reportPath":"",
+  "context":"<a href='www.baidu.com'> baidu一下</a>",
+  "files":""
+  }
+}
+
