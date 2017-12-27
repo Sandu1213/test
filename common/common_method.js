@@ -1,3 +1,4 @@
+
 /**
  * Create on 2017/11/06
  * Author : Duke
@@ -5,6 +6,8 @@
  */
 'use strict';
 var webdriver = require('selenium-webdriver');
+
+
 var randomstring = require('randomstring');
 const fs = require('fs');
 const ops = {
@@ -22,9 +25,10 @@ class common_func{
    */
 	static initWebDriver() {
         
-        let driver = new webdriver.Builder().withCapabilities
-            (webdriver.Capabilities.chrome()).build()
-        // let driver = new webdriver.Builder().forBrowser('chrome').usingServer('http://localhost:4444/wd/hub').build();
+        //server--需要启动standalone.jar(eg.java -Dwebdriver.chrome.driver='/path/to/chromedriver.exe' -jar xx.jar)
+        let driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome())
+            .usingServer('http://localhost:4444/wd/hub').build();
+        // let driver = new webdriver.Builder().forBrowser('chrome').build(); //单机调试使用
         return driver;
     } 
    

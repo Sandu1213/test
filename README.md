@@ -7,7 +7,7 @@
 - **Install Dependencies**  
   Run the command:
     ```
-       npm install
+       npm install  or yarn install
     ```
 - **Running**  
   on the window, please call
@@ -16,5 +16,5 @@
     ```
   on the linux, please call
     ```
-     ./start.sh
+     ./start.sh  xxx(siteurl)
     ```

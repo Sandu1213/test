@@ -24,29 +24,27 @@ module.exports = async function domainTest() {
         this.timeout(0);
         before(async function () {
             await td.clickBylocator(page_config.homepage.signinbtn, 2000);
+            await td.waitpage(2000);
+            await ext.login(testdata.signIn.account.username,testdata.signIn.account.password);
             await td.waitpage(3000);
-            await ext.login(1,testdata.signIn.account.username,testdata.signIn.account.password);
-            await td.waitpage(5000);
            
         });
 
         step('#3.1.1  check blank-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
-                
+                await ext.enterDomain();                
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.blank.select,
                     page_config.tmppage.personal.contains.blank.preview);
-                await console.log(current_window.value_);
-                await td.switchToNewWindow(current_window.value_);
-                let imgname = 'blankpreview' + com.getTime();               
-                await td.SaveScreenshot(path, imgname);
+                
+                await td.switchToNewWindow(current_window.value_);                                
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.blank.Prepagecheck,
                     testdata.tmppage.personal.blankpage);
+                let imgname = 'blankpreview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
-                await td.closeNewwindow();
-                await td.waitpage(1000);
+                await td.closeNewwindow();                
                 await td.switchToDefaultWindow(current_window.value_);
                 
                 
@@ -61,7 +59,7 @@ module.exports = async function domainTest() {
             try { 
                 
                 let sitename = 'blank' + String(com.GenStr(3,'alphanumeric')).toLowerCase();
-                
+                console.log('sitename: ' + sitename);
                 await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.blank.select,sitename);
                 
                 // if(td.getElement(page_config.realNamepage.title)){
@@ -69,14 +67,9 @@ module.exports = async function domainTest() {
                 // }
 
                 let imgname = 'case3.1.2' + com.getTime();                
-                await td.SaveScreenshot(path, imgname);
-                // await td.getElement(page_config.tmppage.domain.checksuccess);
-                // await td.clickBylocator(page_config.tmppage.domain.gotoConfig1);
-                // await td.waitpage(2000);
+                await td.SaveScreenshot(path, imgname);                
                 return td.getElement(page_config.tmppage.domain.checksuccess);
-                // return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
-                //     td.checkResult('equal', String(res[0]), testdata.signup.expectMsg.emptyusername);
-                // });
+               
             } catch (error) {
                 console.log(error);
             }
@@ -90,7 +83,7 @@ module.exports = async function domainTest() {
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.basic.select,
                     page_config.tmppage.personal.contains.basic.preview);
-                await console.log(current_window.value_);
+                
                 await td.switchToNewWindow(current_window.value_);
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.basic.Prepagecheck,
                     testdata.tmppage.personal.basicpage);
@@ -111,7 +104,8 @@ module.exports = async function domainTest() {
         step('#3.2.2 create basic-templates site', async function () {
             try {
                 //await ext.enterDomain();
-                let sitename = 'basic' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();                
+                let sitename = 'basic' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();
+                console.log('sitename: '+ sitename);
                 await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.basic.select, sitename); 
                 let imgname = 'case3.2.2' + com.getTime();
                 await console.log("filename32 is" + imgname);
@@ -130,7 +124,7 @@ module.exports = async function domainTest() {
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.resume.select,
                     page_config.tmppage.personal.contains.resume.preview);
-                await console.log(current_window.value_);
+                
                 await td.switchToNewWindow(current_window.value_);
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.resume.Prepagecheck,
                     testdata.tmppage.personal.resumepage);
@@ -172,12 +166,13 @@ module.exports = async function domainTest() {
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.vip.select,
                     page_config.tmppage.personal.contains.vip.preview);
-                await console.log(current_window.value_);
+                
                 await td.switchToNewWindow(current_window.value_);
-                let imgname = 'vippreview' + com.getTime();
-                await td.SaveScreenshot(path, imgname);
+                
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.vip.Prepagecheck,
                    testdata.tmppage.personal.vippage);
+                let imgname = 'vippreview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
@@ -213,12 +208,12 @@ module.exports = async function domainTest() {
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company1.select,
                     page_config.tmppage.company.contains.company1.preview);
-                await console.log(current_window.value_);
-                await td.switchToNewWindow(current_window.value_);
-                let imgname = 'company1preview' + com.getTime();
-                await td.SaveScreenshot(path, imgname);
+                
+                await td.switchToNewWindow(current_window.value_);                
                 await ext.checkPreviewResult(page_config.tmppage.company.contains.company1.Prepagecheck,
                     testdata.tmppage.company.prepage1);
+                let imgname = 'company1preview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
@@ -252,12 +247,12 @@ module.exports = async function domainTest() {
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company2.select,
                     page_config.tmppage.company.contains.company2.preview);
-                await console.log(current_window.value_);
-                await td.switchToNewWindow(current_window.value_);
-                let imgname = 'company2preview' + com.getTime();
-                await td.SaveScreenshot(path, imgname);
+               
+                await td.switchToNewWindow(current_window.value_);                
                 await ext.checkPreviewResult(page_config.tmppage.company.contains.company2.Prepagecheck,
                     testdata.tmppage.company.prepage2);
+                let imgname = 'company2preview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
@@ -291,13 +286,13 @@ module.exports = async function domainTest() {
                 await ext.enterDomain();
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.group.key, page_config.tmppage.group.contains.group.select,
-                    page_config.tmppage.group.contains.group.preview);
-                await console.log(current_window.value_);
+                    page_config.tmppage.group.contains.group.preview);                
                 await td.switchToNewWindow(current_window.value_);
-                let imgname = 'grouppreview' + com.getTime();
-                await td.SaveScreenshot(path, imgname);
+                
                 await ext.checkPreviewResult(page_config.tmppage.group.contains.group.Prepagecheck,
                     testdata.tmppage.group.prepage);
+                let imgname = 'grouppreview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
@@ -330,13 +325,13 @@ module.exports = async function domainTest() {
                 await ext.enterDomain();
                 let current_window = dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.game.key, page_config.tmppage.game.contains.game.select,
-                    page_config.tmppage.game.contains.game.preview);
-                await console.log(current_window.value_);
+                    page_config.tmppage.game.contains.game.preview);                
                 await td.switchToNewWindow(current_window.value_);
-                let imgname = 'gamepreview' + com.getTime();
-                await td.SaveScreenshot(path, imgname);
+                
                 await ext.checkPreviewResult(page_config.tmppage.game.contains.game.Prepagecheck,
                     testdata.tmppage.game.prepage);
+                let imgname = 'gamepreview' + com.getTime();
+                await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
@@ -392,7 +387,7 @@ module.exports = async function domainTest() {
                         dev.driver.switchTo().window(window);
                     }
                 });
-                await ext.login(1,'test001','123456');
+                await ext.login('test001','123456');
                 await td.waitpage(6000);
                 await td.clickBylocator(page_config.tmppage.course.contains.course.agree_btn);
                 await td.waitpage(1000);
@@ -419,6 +414,8 @@ module.exports = async function domainTest() {
             await dev.driver.navigate().back();
             await dev.driver.navigate().back();
             await dev.driver.navigate().back();
+            await td.waitpage(2000);
+            await ext.logout();
         });
 
     });

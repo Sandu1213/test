@@ -29,13 +29,11 @@ module.exports = async function loginTest() {
         step('#2.1 verify username and password is empty',async function () {
 
             try {
-                await ext.login(0, testdata.signIn.emptyaccount.username, testdata.signIn.emptyaccount.password);
-                await td.waitpage(500);
-                return td.getElementText(page_config.homepage.checktext).then(function(res){
-                    console.log('res is ' + res);
-                    td.checkResult('equal', res, testdata.signIn.expectMsg.emptyaccount);
-                });
+                await ext.login(testdata.signIn.emptyaccount.username,testdata.signIn.emptyaccount.password);
                 
+                return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                    td.checkResult('equal', actval, testdata.signIn.expectMsg.emptyaccount);
+                });   
             } catch (error) {
                 console.log(error);
             }
@@ -45,11 +43,10 @@ module.exports = async function loginTest() {
         step('#2.2 verify the password is empty', async function () {
 
             try {
-                await ext.login(0, testdata.signIn.account.username, testdata.signIn.emptyaccount.password);
-                await td.waitpage(2000);
-                return td.getElementText(page_config.homepage.checktext).then(function (res) {
-                    td.checkResult('equal', res, testdata.signIn.expectMsg.emptypassword);
-                }); 
+                await ext.login(testdata.signIn.account.username, testdata.signIn.emptyaccount.password);
+                return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                    td.checkResult('equal', actval, testdata.signIn.expectMsg.emptypassword);
+                });                 
             } catch (error) {
                 console.log(error);
             }
@@ -59,12 +56,10 @@ module.exports = async function loginTest() {
         step('#2.3 verify the password is wrong', async function () {
 
             try {
-                await ext.login(0, testdata.signIn.account.username, testdata.signIn.invalidaccount.password);
-                await td.waitpage(2500);
-                return td.getElementText(page_config.homepage.checktext).then(function (res) {
-                    td.checkResult('equal', res, testdata.signIn.expectMsg.invalidpassword);
-                });
-                
+                await ext.login(testdata.signIn.account.username, testdata.signIn.invalidaccount.password);
+                return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                    td.checkResult('equal', actval, testdata.signIn.expectMsg.invalidpassword);
+                });                
             } catch (error) {
                 console.log(error);
             }
@@ -74,12 +69,10 @@ module.exports = async function loginTest() {
         step('#2.4 verify the account is not existed', async function () {
 
             try {
-                await ext.login(0, testdata.signIn.invalidaccount.username, testdata.signIn.account.password);
-                await td.waitpage(2500);
-                return td.getElementText(page_config.homepage.checktext).then(function (res) {
-                    td.checkResult('equal', res, testdata.signIn.expectMsg.invalidaccount);
-                });
-                               
+                await ext.login(testdata.signIn.invalidaccount.username, testdata.signIn.account.password);
+                return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                    td.checkResult('equal', actval, testdata.signIn.expectMsg.invalidaccount);
+                });  
             } catch (error) {
                 console.log(error);
             }
@@ -89,7 +82,7 @@ module.exports = async function loginTest() {
         step('#2.5 verify the account type is Number', async function () {
 
             try {
-                await ext.login(1, testdata.signIn.numberaccount.username, testdata.signIn.numberaccount.password);
+                await ext.login(testdata.signIn.numberaccount.username, testdata.signIn.numberaccount.password);
                 await td.waitpage(5000);
                 await td.getElement(page_config.signIn.signsuccess);
                 await ext.logout();
@@ -110,7 +103,7 @@ module.exports = async function loginTest() {
                 await td.waitpage(1000);
                 await td.clickBylocator(page_config.homepage.signinbtn, 2000);
                 await td.waitpage(2000);
-                await ext.login(1, username, password);
+                await ext.login(username, password);
                 await td.waitpage(5000);
                 await td.getElement(page_config.signIn.signsuccess);
                 await ext.logout();
@@ -127,7 +120,7 @@ module.exports = async function loginTest() {
                 await td.waitpage(1000);
                 await td.clickBylocator(page_config.homepage.signinbtn, 2000);
                 await td.waitpage(2000);
-                await ext.login(1, username, password);
+                await ext.login(username, password);
                 await td.waitpage(5000);
                 await td.getElement(page_config.signIn.signsuccess);
                 await ext.logout();
@@ -142,7 +135,7 @@ module.exports = async function loginTest() {
             try {
                 await td.clickBylocator(page_config.homepage.signinbtn, 2000);
                 await td.waitpage(2000);
-                await ext.login(1, testdata.signIn.account.username, testdata.signIn.account.password);
+                await ext.login(testdata.signIn.account.username, testdata.signIn.account.password);
                 await td.waitpage(5000);
                 await td.getElement(page_config.signIn.signsuccess);
                 await ext.logout();

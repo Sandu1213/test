@@ -25,7 +25,7 @@ module.exports = async function signupTest() {
         before(async function () {
             await td.clickBylocator(page_config.homepage.signupbtn, 2000);
             await td.waitpage(3000);
-            let imgname = 'signup' + com.getTime();
+            let imgname = 'signup' + await com.getTime();
             await td.SaveScreenshot(path, imgname);           
         });
 
@@ -34,12 +34,8 @@ module.exports = async function signupTest() {
         step('#1.1 verify username and password is empty', async function () {
 
             try {
-                await Promise.all([                    
-                    ext.SignUp(0, testdata.signup.emptyaccount.username, testdata.signup.emptyaccount.password),
-                    td.waitpage(500)
-                ]);  
-                let imgname = 'case1.1' + com.getTime();
-                await console.log("filename1 is" + imgname);
+                await ext.SignUp(testdata.signup.emptyaccount.username, testdata.signup.emptyaccount.password);
+                let imgname = 'case1.1' + await com.getTime();               
                 await td.SaveScreenshot(path, imgname);  
 
                 return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
@@ -53,9 +49,8 @@ module.exports = async function signupTest() {
         
         step('#1.2 verify username is empty', async function () {
             try {
-                await ext.SignUp(0, testdata.signup.emptyaccount.username, testdata.signup.account.password);
-                let imgname = 'case1.2' + await com.getTime();
-                await console.log("filename2 is" + imgname);
+                await ext.SignUp(testdata.signup.emptyaccount.username, testdata.signup.account.password);
+                let imgname = 'case1.2' + await com.getTime();               
                 await td.SaveScreenshot(path, imgname);
 
                 return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
@@ -71,13 +66,11 @@ module.exports = async function signupTest() {
 
             try {
 
-                await ext.SignUp(0, testdata.signup.zhaccount.username, testdata.signup.account.password);
-                await td.waitpage(3000);
+                await ext.SignUp(testdata.signup.zhaccount.username, testdata.signup.account.password);                
                 let imgname = 'case1.3' + await com.getTime();
                 await td.SaveScreenshot(path, imgname);
 
-                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
-                    console.log("res is " + res);
+                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {                    
                     td.checkResult('equal', String(res[0]).trim(), testdata.signup.expectMsg.zhusername);
                 });
             } catch (error) {
@@ -89,13 +82,11 @@ module.exports = async function signupTest() {
         step('#1.4 verify password is empty', async function () {
 
             try {
-                await ext.SignUp(0, testdata.signup.account.username, testdata.signup.emptyaccount.password);
-                await td.waitpage(4000);
+                await ext.SignUp(testdata.signup.account.username, testdata.signup.emptyaccount.password);                
                 let imgname = 'case1.4' + await com.getTime();                
                 await td.SaveScreenshot(path, imgname);
                                
-                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
-                    console.log("res is "+ res);
+                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {                    
                     td.checkResult('equal', String(res[1]).trim(), testdata.signup.expectMsg.emptypassword);
                 });
             } catch (error) {
@@ -107,14 +98,11 @@ module.exports = async function signupTest() {
         step('#1.5 verify username is Number', async function () {
 
             try {
-                //await td.waitpage(2000);
-                await ext.SignUp(2, testdata.signup.numberaccount.username, testdata.signup.account.password);
-                let imgname = 'case1.5' + com.getTime();
-                console.log("imgname4 is " + imgname);
+                await ext.SignUp(testdata.signup.numberaccount.username, testdata.signup.account.password);
+                let imgname = 'case1.5' + await com.getTime();                
                 await td.SaveScreenshot(path, imgname);
 
-                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
-                    console.log('number' + res)
+                return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {                    
                     td.checkResult('equal', String(res[0]).trim(), testdata.signup.expectMsg.numberaccount);
                 });
             } catch (error) {
@@ -126,10 +114,9 @@ module.exports = async function signupTest() {
         step('#1.6 verify password length', async function () {
 
             try {
-                //await td.waitpage(2000);
-                await ext.SignUp(2, testdata.signup.account.username, testdata.signup.invalidaccount.password);
-                let imgname = 'case1.6' + com.getTime();
-                console.log("imgname5 is " + imgname);
+                
+                await ext.SignUp(testdata.signup.account.username, testdata.signup.invalidaccount.password);
+                let imgname = 'case1.6' + await com.getTime();                
                 await td.SaveScreenshot(path, imgname);
                 
                 return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
@@ -143,10 +130,8 @@ module.exports = async function signupTest() {
 
         step('#1.7 verify username contain the sensitive word ', async function () {
             try {
-                //await td.waitpage(2000);
-                await ext.SignUp(2, testdata.signup.invalidaccount.username, testdata.signup.account.password);
-                let imgname = 'case1.7' + com.getTime();
-                console.log("imgname6 is" + imgname);
+                await ext.SignUp(testdata.signup.invalidaccount.username, testdata.signup.account.password);
+                let imgname = 'case1.7' + await com.getTime();                
                 await td.SaveScreenshot(path, imgname);
                 
                 return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
@@ -159,15 +144,14 @@ module.exports = async function signupTest() {
 
         step('#1.8 verify username length is over limit ', async function () {
             try {
-                //await td.waitpage(2000);
+                
                 let username = 'test' + com.GenStr(30);
                 let password = 'pwd' + com.GenStr(6);
                 let content = username + '/' + password + '\n';
                 console.log('Account info is ' + content);
 
-                await ext.SignUp(2, username, password);
-                let imgname = 'case1.8' + com.getTime();
-                console.log("imgname7 is" + imgname);
+                await ext.SignUp(username, password);
+                let imgname = 'case1.8' + await com.getTime();                
                 await td.SaveScreenshot(path, imgname);
 
                 return td.getEleTxtBySelecter(page_config.signUp.checktext).then(function (res) {
@@ -186,8 +170,8 @@ module.exports = async function signupTest() {
                 let content = username + '/' + password + '\n';
                 console.log('Account info is ' + content);
                 await com.saveFile(filename,content);
-                await ext.SignUp(1, username, password);
-                await td.waitpage(12000);
+                await ext.SignUp(username, password);
+                await td.waitpage(15000);
                 await td.getElement(page_config.signUp.success);
                 await td.clickBylocator(page_config.signUp.backbtn);
                 await td.waitpage(2000);
@@ -208,8 +192,8 @@ module.exports = async function signupTest() {
                 await com.saveFile(filename, content);
                 await td.clickBylocator(page_config.homepage.signupbtn, 2000);
                 await td.waitpage(3000);
-                await ext.SignUp(1, username, password);
-                await td.waitpage(12000);
+                await ext.SignUp(username, password);
+                await td.waitpage(15000);
                 await td.getElement(page_config.signUp.success);
                 await td.clickBylocator(page_config.signUp.gotohome);
                 await td.waitpage(3000);
@@ -223,25 +207,25 @@ module.exports = async function signupTest() {
 
             try {
                 let offset = { start: 0, end: 16 };
+                let username = '';
+                let password = '';
                 let readstream = await com.readFile(filename,offset);
-                readstream.on('data',async function(data){
-                    let arr = String(data).split('/');
-                    console.log('arr is ' + arr);
-                    let username = arr[0];
-                    let password = arr[1];
-                    console.log('u' + username + ';' + password);
-                    await td.clickBylocator(page_config.homepage.signupbtn, 2000);
-                    await td.waitpage(2000);
-                    await ext.SignUp(0, username, password);
-                    await td.waitpage(6000);
-                    let imgname = 'case1.11' + com.getTime();
-                    console.log("imgname1.1111 is" + imgname);
-                    await td.SaveScreenshot(path, imgname);
-                    return td.getEleTxtBySelecter(page_config.signUp.repeattext).then(function (res) {
-                        td.checkResult('equal', String(res[0]).trim(), testdata.signup.expectMsg.repeataccount);
-                    });
-                })
+                await readstream.on('data',async function(data){
+                    let arr = String(data).split('/');                   
+                    username = arr[0];
+                    password = arr[1]; 
+                    let content = username + '/' + password + '\n';
+                    console.log('repeatAccount info is ' + content);                   
+                });
                 
+                await td.clickBylocator(page_config.homepage.signupbtn, 2000);
+                await td.waitpage(2000);               
+                await ext.SignUp(username, password);                
+                let imgname = 'case1.11' + await com.getTime();               
+                await td.SaveScreenshot(path, imgname);
+                return td.getEleTxtBySelecter(page_config.signUp.repeattext).then(function (res) {
+                    td.checkResult('equal', String(res[0]).trim(), testdata.signup.expectMsg.repeataccount);
+                });
             }catch (error) {
                 console.log(error);
             }

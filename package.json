@@ -24,7 +24,7 @@
     "nodemailer": "^4.3.1",
     "nodemailer-mailgun-transport": "^1.3.5",
     "randomstring": "^1.1.5",
-    "selenium-webdriver": "^3.8.0"
+    "selenium-webdriver": "^3.6.0"
   },
   "devDependencies": {
     "mocha-steps": "^1.1.0"

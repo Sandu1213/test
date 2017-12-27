@@ -36,7 +36,7 @@ var realNamepage = {
 
 var tmppage = {
 	"personal":{
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[1]"},
+		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[1]/a"},
 		"contains":{
 			"blank":{
 				"main": { "css":"img[ng-src$='wiki_blank_template.png']"},
@@ -65,7 +65,7 @@ var tmppage = {
 		}
 	},
 	"company":{
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[2]" },
+		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[2]/a" },
 		"contains": {
 			"company1": {
 				"main": { "css": "img[ng-src$='wiki_company1_template.jpg']" },
@@ -82,7 +82,7 @@ var tmppage = {
 		}
 	},
 	"group": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[3]" },
+		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[3]/a" },
 		"contains": {
 			"group": {
 				"main": { "css": "img[ng-src$='wiki_organization_template.png']" },
@@ -93,7 +93,7 @@ var tmppage = {
 		}
 	},
 	"game": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[4]" },
+		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[4]/a" },
 		"contains": {
 			"game": {
 				"main": { "css": "img[ng-src$='wiki_game_template.jpg']" },
@@ -104,7 +104,7 @@ var tmppage = {
 		}
 	},
 	"course": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[5]" },
+		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[5]/a" },
 		"contains": {
 			"course": {
 				"main": { "css": "img[ng-src$='img_1509532234890.png']"},
@@ -134,7 +134,7 @@ var mysite = {
 	"create": { "css":"a[ng-click$='goNewWebsitePage()']"},
 	"siteNum": { "css":"div.panel-body.website-flex > h3 > span > span"},
 	"type": { "css":" div.panel-body.website-flex > div > div:nth-child(6) > div:nth-child(1) > span"},
-	"siteName": {"css": "div.ftbody-item.ng-scope > div:nth-child(1)"},
+	"siteName": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(1)"},
 	"siteAddress": { "css": "div.ftbody-item.ng-scope > div:nth-child(2) > a"},
 	"createDate": { "css": "div.ftbody-item.ng-scope > div:nth-child(3)"},
 	"operation":{

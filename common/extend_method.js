@@ -28,58 +28,30 @@ class extend_method{
     }
 
     //进行登陆验证
-    async login(type,username, password){
-        this.driver.getCurrentUrl().then(async function (url) {
-            console.log('current url is ' + url);
-            
+    async login(username, password){
+        await this.driver.getCurrentUrl().then(async function (url) {
+            console.log('current url is ' + url);            
             try {
                 if (String(url).includes('home')) {
                     let locarr = [page_config.homepage.username, page_config.homepage.password, page_config.homepage.login];
-                    let dataarr = [username, password];
-                    if (type == TYPE_SCCESS) {
+                    let dataarr = [username, password];                   
+                    if (username == '' && password == '') {                        
+                        await td.clickBylocator(page_config.homepage.login, 2000);
+                        await td.waitpage(2000);
+                    }else{                        
                         await td.submitData(locarr, dataarr, 1000);
                         await td.waitpage(2000);
-                    } else if (type == TYPE_FAILED) {
-                        if (username == '' && password == ''){
-                            console.log('**1**')
-                            await td.clickBylocator(page_config.homepage.login, 2000);
-                            
-                        } else if (username != '' && password == ''){
-                            console.log('**2**')
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(2000);
-                        } else if (username != '' && (String(password).length < 6)){
-                            console.log('**3**')
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(2000);
-                        } else{
-                            console.log('**4**')
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(2000);
-                        }
-                    }
-                } else {
+                    }                    
+                }else{
                     let locarr = [page_config.signIn.username, page_config.signIn.password, page_config.signIn.login];
                     let dataarr = [username, password];
-
-                    if (type == TYPE_SCCESS) {
-                        console.log('&&&&&&&&here');
+                    if (username == '' && password == '') {
+                        await td.clickBylocator(page_config.signIn.login, 2000);
+                        await td.waitpage(2000);
+                    }else{
                         await td.submitData(locarr, dataarr, 1000);
                         await td.waitpage(2000);
-                    } else if (type == TYPE_FAILED) {
-                        if (username == '' && password == '') {
-                            await td.clickBylocator(page_config.signIn.login, 2000);
-                        } else if (username != '' && password == '') {
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(3000);
-                        } else if (username != '' && (String(password).length < 6)) {
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(3000);
-                        } else {
-                            await td.submitData(locarr, dataarr, 1000);
-                            await td.waitpage(3000);
-                        }
-                    }
+                    }                    
                 }
             } catch (error) {
                 console.error(error);
@@ -89,54 +61,17 @@ class extend_method{
     }
 
     //进行注册
-    async SignUp(type,username,password){
+    async SignUp(username,password){
        try {
             //操作的元素及数据
             let locarr = [page_config.signUp.username, page_config.signUp.password, page_config.signUp.signupbtn];
             let dataarr = [username, password];
-
-            if (type == TYPE_SCCESS) {
-               if (username != null && password != null) {
-                   await td.submitData(locarr, dataarr, 1000);
-                   await td.waitpage(3000);
-               }
-            }else if (type == TYPE_FAILED) { 
-              console.log("-----------------------")
-                if (username == '' && password == '') {                  
-                    await td.clickBylocator(page_config.signUp.signupbtn, 1000);
-                    //await td.waitpage(1000);
-                }else if (username =='' && password != ''){
-                    await td.clickBylocator(page_config.signUp.password, 1000);
-                    await td.inputData(page_config.signUp.password, password, 1000);
-                    await td.clickBylocator(page_config.signUp.signupbtn, 1000);
-                    await td.waitpage(2000);
-                }else if (username != '' && password == ''){                    
-                    await td.clickBylocator(page_config.signUp.username, 1000);
-                    await td.inputData(page_config.signUp.username, username, 1000);
-                    await td.clearText(td.getElement(page_config.signUp.password));
-                    await td.clickBylocator(page_config.signUp.signupbtn, 1000); 
-                    await td.waitpage(2000);                   
-                } else if (username != '' && password != ''){
-                    await td.submitData(locarr, dataarr, 1000);
-                    await td.waitpage(2000);
-                }
+            if (username == '' && password == '') {
+                await td.clickBylocator(page_config.signUp.signupbtn, 1000);
+                await td.waitpage(1000);
             }else{
-                if (typeof(username) === 'number'){
-                    await td.submitData(locarr, dataarr, 1000);
-                    await td.waitpage(3000);
-                }
-                if (String(password).length < 6){
-                    await td.submitData(locarr, dataarr, 1000);
-                    await td.waitpage(3000);
-                }
-                if (String(username).includes('AV')){
-                    await td.submitData(locarr, dataarr, 1000);
-                    await td.waitpage(3000);
-                }
-                if(String(username).length > 30){
-                    await td.submitData(locarr, dataarr, 1000);
-                    await td.waitpage(3000);
-                }
+                await td.submitData(locarr, dataarr, 1000);
+                await td.waitpage(2000); 
             }
        } catch (error) {
            console.error(error);
@@ -149,6 +84,7 @@ class extend_method{
         await td.clickBylocator(page_config.homepage.avator);
         await td.waitpage(2000);
         await td.clickBylocator(page_config.homepage.exit);
+        await td.waitpage(2000);
     }
     
     //从个人头像位置切换菜单
@@ -201,7 +137,7 @@ class extend_method{
         await td.waitpage(3000);
     }
 
-    //根据不同的模板进行选择
+    //选择不同的模板创建网站
     async selectTemplates(type,tmp,sitename){
         try {
             let driver = this.driver;
@@ -215,12 +151,11 @@ class extend_method{
             await td.waitpage(1000);
             await td.clickBylocator(page_config.tmppage.domain.nextstep);
             await td.waitpage(2000);
-            await td.clickNum(page_config.tmppage.domain.nextstep,2);
+            await td.clickBylocator(page_config.tmppage.domain.nextstep);           
             await td.waitpage(15000); 
         } catch (error) {
             throw new Error(error);
-        }
-        
+        }        
     }
 
     //对模板进行预览操作
@@ -240,7 +175,7 @@ class extend_method{
 
     }
     //对预览的模板进行验证
-    checkPreviewResult(loc,expected){
+    async checkPreviewResult(loc,expected){
 
         return td.getElementText(loc).then(function(val) {
            console.log('val is ' + val);
@@ -249,6 +184,7 @@ class extend_method{
        
 
     }
+    //从网站管理页面进行建站
     createWebsite(){
 
     }
@@ -256,9 +192,49 @@ class extend_method{
     editWebsite(){
 
     }
+    //获取当前网站总数
+    async getCurrentWebsiteNum(){
+        let sitenum = 0;
+        await td.getElementText(page_config.mysite.siteNum).then(function(val) {
+            console.log("site num is "+ val);
+            sitenum = val;
+        });
+        return sitenum;
+    }
 
-    createDiagram(){
-
+    //获取数量获取对应站点信息
+    async getWebsiteInfo(siteNum){        
+        let i = 0;
+        let sitearr = [];       
+        if(siteNum == '0'){
+            console.log('you need to create site first!')
+        }else{
+            while (i < siteNum) {
+                let name = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(1)" });
+                let address = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(2)" });
+                let dates = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(3)" });
+                i = i + 1;  
+                let info = {"name":name,"address":address,"date":dates};                
+                sitearr.push(info);
+            }
+        }
+        return sitearr;
+    }
+        
+    //网站管理页面网站删除操作(options:confirm/cancel)
+    async delWebsite(sitelocator,options='confirm'){
+        await td.clickBylocator(sitelocator);
+        await td.waitpage(2000);
+        await td.getElement({ "css": "h4#deleteWebsiteConfirmModalLabel" });
+        await td.clickBylocator({ "css": "input[ng-model^='delete']" });
+        await td.waitpage(2000);
+        if(options == 'confirm'){           
+            await td.clickBylocator({ "css": "button[ng-click^='confirm']" });
+            await td.waitpage(10000);
+        }else{
+            await td.clickBylocator({ "css": "button.btn.btn-default.ng-binding[data-dismiss^='mod']"});
+            await td.waitpage(1000);
+        }
     }
 
     uploadBigfile(){
