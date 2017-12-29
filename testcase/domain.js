@@ -106,8 +106,7 @@ module.exports = async function domainTest() {
                 //await ext.enterDomain();
                 let sitename = 'basic' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();
                 console.log('sitename: '+ sitename);
-                await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.basic.select, sitename); 
-                let imgname = 'case3.2.2' + com.getTime();
+                await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.basic.select, sitename);                 
                 await console.log("filename32 is" + imgname);
                 await td.SaveScreenshot(path, imgname);
                 return td.getElement(page_config.tmppage.domain.checksuccess);
@@ -149,8 +148,7 @@ module.exports = async function domainTest() {
                 let sitename = 'resume' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();
                 await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.resume.select, sitename);             
                 
-                let imgname = 'case3.3.2' + com.getTime();
-                await console.log("filename33 is" + imgname);
+                let imgname = 'case3.3.2' + com.getTime();                
                 await td.SaveScreenshot(path, imgname);
                 return td.getElement(page_config.tmppage.domain.checksuccess);
             } catch (error) {
@@ -376,14 +374,14 @@ module.exports = async function domainTest() {
                 await td.clickBylocator(page_config.tmppage.course.contains.course.login);
                 await td.waitpage(2000);
                 let allwindows = await dev.driver.getAllWindowHandles();
-                await console.log(current_window.value_);
-                await console.log("---------------------");
-                await console.log(allwindows);
+                //await console.log(current_window.value_);
+                //await console.log("---------------------");
+                //await console.log(allwindows);
                 allwindows.forEach(function(window) {
-                    console.log("window is " + window);
+                    //console.log("window is " + window);
                     if (window != current_window.value_)
                     {
-                        console.log("switch is " + window);
+                        //console.log("switch is " + window);
                         dev.driver.switchTo().window(window);
                     }
                 });
@@ -397,7 +395,7 @@ module.exports = async function domainTest() {
                 await td.clickBylocator(page_config.tmppage.course.contains.course.close_btn);
                 await td.waitpage(1000);
                 let imgname = 'case3.9' + com.getTime();
-                await console.log("filename39 is" + imgname);
+                //await console.log("filename39 is" + imgname);
                 await td.SaveScreenshot(path, imgname);
                 
                 return td.getElement(page_config.tmppage.course.checksuccess1);
