@@ -176,21 +176,47 @@ class extend_method{
     }
     //对预览的模板进行验证
     async checkPreviewResult(loc,expected){
-
         return td.getElementText(loc).then(function(val) {
-           console.log('val is ' + val);
+           console.log('page value is ' + val);
            td.checkResult('equal',val,expected);           
-       });     
-       
-
+       }); 
     }
+
     //从网站管理页面进行建站
-    createWebsite(){
-
+    async getPrivateWebsite(siteNum){
+        let i = 0;
+        let privatesite = 0;
+        let sitearr = [];
+        try {
+            while (i < siteNum) {                
+                let loc = "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(1) > span[class=\\'iconfont icon-lock\\']";
+                let script = "var els=document.querySelectorAll('" + loc + "');"
+                            + "return els;";               
+                let content = await this.driver.executeScript(script);                
+                let name = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(1)" });                
+                if (content.length > 0) {
+                    privatesite = privatesite + 1;
+                    sitearr.push(name);                    
+                }
+                i = i + 1;
+            }
+            let info = { "num": privatesite, "details": sitearr };
+            return info;
+        } catch (error) {
+            throw new Error(error);
+        }
+        
     }
 
-    editWebsite(){
-
+    async AddSiteContent(content){
+        try {
+            let loc = page_config.mysite.editArea.splitTableft;  
+            await td.clickBylocator(page_config.mysite.editArea.loc);
+            await td.appendData(loc,content);
+            await td.clickBylocator(page_config.mysite.editArea.saveBtn);
+        } catch (error) {
+            throw new Error(error);
+        }               
     }
     //获取当前网站总数
     async getCurrentWebsiteNum(){
@@ -202,21 +228,17 @@ class extend_method{
         return sitenum;
     }
 
-    //获取数量获取对应站点信息
-    async getWebsiteInfo(siteNum){        
+    //获取数量获取对应站点信息(默认取前5条数据)
+    async getWebsiteInfo(siteNum=5){        
         let i = 0;
-        let sitearr = [];       
-        if(siteNum == '0'){
-            console.log('you need to create site first!')
-        }else{
-            while (i < siteNum) {
-                let name = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(1)" });
-                let address = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(2)" });
-                let dates = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(3)" });
-                i = i + 1;  
-                let info = {"name":name,"address":address,"date":dates};                
-                sitearr.push(info);
-            }
+        let sitearr = []; 
+        while (i < siteNum) {
+            let name = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(1)" });
+            let address = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(2)" });
+            let dates = await td.getElementText({ "css": "div.flex-table > div:nth-child(" + (i + 3) + ") > div:nth-child(3)" });
+            i = i + 1;  
+            let info = {"name":name,"address":address,"date":dates};                
+            sitearr.push(info);
         }
         return sitearr;
     }

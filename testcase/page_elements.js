@@ -133,19 +133,29 @@ var tmppage = {
 var mysite = {
 	"create": { "css":"a[ng-click$='goNewWebsitePage()']"},
 	"siteNum": { "css":"div.panel-body.website-flex > h3 > span > span"},
-	"type": { "css":" div.panel-body.website-flex > div > div:nth-child(6) > div:nth-child(1) > span"},
+	"type": "span[class='iconfont icon-lock']",
 	"siteName": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(1)"},
-	"siteAddress": { "css": "div.ftbody-item.ng-scope > div:nth-child(2) > a"},
-	"createDate": { "css": "div.ftbody-item.ng-scope > div:nth-child(3)"},
+	"siteAddress": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(2)"},
+	"createDate": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(3)"},
 	"operation":{
-		"see": {"css": "div.ftbody-item.ng-scope > div:nth-child(4) > a:nth-child(1)"},
-		"edit": { "css": "div.ftbody-item.ng-scope > div:nth-child(4) > a:nth-child(2)"},
-		"setup": { "css": "div.ftbody-item.ng-scope > div:nth-child(4) > a:nth-child(3)"},
-		"remove": { "css": "div.ftbody-item.ng-scope > div:nth-child(4) > a:nth-child(4)"},
+		"see": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(1)"},
+		"edit": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(2)"},
+		"setup": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(3)"},
+		"remove": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(4)"},
 		"delWindowTitle": { "css":"h4#deleteWebsiteConfirmModalLabel"},
 		"confirm_btn": { "css":"button[ng-click*='confirm']"},
 		"cancel_btn": {"css":"button.btn.btn-default.ng-binding[data-dismiss*='modal']"}
-
+	},
+	"editArea":{
+		"loc": { "css":"div.CodeMirror-code > div:nth-child(1) > pre.CodeMirror-line"},
+		"splitTableft": { "css":"div.CodeMirror-code > div:nth-child(1) > pre > span"},
+		"saveBtn": { "css":"#codeToolbar > div:nth-child(2) > div:nth-child(1)"},
+		"saveSuccess": { "css":"div#messageTipId.alert > div#messageTipConentId"},
+		"backtoPersonalpage": { "css":"#codeToolbar > div.btn-group.brand-btn-group > a"}
+	},
+	"checkpage":{
+		"first": { "css": "div#_mdwiki_content_container_mdwiki_0" },
+		"second": {	"css": "div#_mdwiki_content_container_mdwiki_0 > div > p"}
 	}
 
 }
