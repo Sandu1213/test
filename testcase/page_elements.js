@@ -140,7 +140,41 @@ var mysite = {
 	"operation":{
 		"see": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(1)"},
 		"edit": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(2)"},
-		"setup": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(3)"},
+		"setup": { 
+			"key":{"css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(3)"},
+			"common":{
+				"icon_input": { "css":"input.change-btn"},
+				"icon_edit_btn": {"css": "a.change-btn.ng-scope"},
+				"icon_save_btn": { "css": "a#finish"},
+				"sitename": { "css": "input#webName"},
+				"siteAddress": { "css": "#common > div > div:nth-child(4) > div.col-sm-5 > p"},
+				"siteintro": { "css": "#intro"},
+				"sitelabels": { 
+					"input": { "css": "div.col-sm-5 > div >input#tagInput"},
+					"addbtn": { "css":"div.col-sm-4.btn.btn-primary.ng-binding[ng-click*='addTag']"},
+					"summary": { "css": "#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box"},
+					"remove": { "css":"span[ng-click*='removeTag(tag)']"},
+					"check": { "css":"#common > div > div:nth-child(6) > div.col-sm-5.text-danger.control-label.ng-binding"}
+				},
+				"notice": { "css":"#common > div > div:nth-child(7) > div >p"},
+				"savebtn": { "css": "#common > div > div:nth-child(7) > div > button[ng-click='modifyWebsite()']"},
+				"saveResult": { "css":"div#messageTipConentId"}
+			},
+			"datasource": {"css": "select[ng-model='dataSourceName']"},
+			"Domainname":{
+				"webAddress": { "css":"#domain > form > div:nth-child(2) > div > p"},
+				"webdomain": { "css":"#domain > form > div:nth-child(3) > div > p"},
+				"cname":{
+					"summary":{},
+					"add":{
+						"input":{},
+						"addbtn":{}
+					},
+					"notice":{}
+				}
+			},
+			"Permissions": { "css": "#domain > form > div:nth-child(3) > div > p" }
+		},		
 		"remove": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(4)"},
 		"delWindowTitle": { "css":"h4#deleteWebsiteConfirmModalLabel"},
 		"confirm_btn": { "css":"button[ng-click*='confirm']"},
@@ -157,7 +191,6 @@ var mysite = {
 		"first": { "css": "div#_mdwiki_content_container_mdwiki_0" },
 		"second": {	"css": "div#_mdwiki_content_container_mdwiki_0 > div > p"}
 	}
-
 }
 
 

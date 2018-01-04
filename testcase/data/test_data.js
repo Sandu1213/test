@@ -52,7 +52,7 @@ const Info = {
 			password: '110111'
 		},
 		account:{
-			username:'dukes',
+			username:'testvip',
 			password:'123456'
 		},
 		expectMsg:{
@@ -88,12 +88,32 @@ const Info = {
 		siteAddress:"keepwork.com/test001/11",
 		check:{
 			pageval:'',
-			pagevalagin:'This is test page!'
+			pagevalagain:'This is test page!'
 		},
 		content: 'This is test page!',
 		saveResult:{
 			success:"文件保存成功",
 			failed:"文件保存失败"
+		},
+		setup1:{
+			icon_path:"\\testcase\\img\\3rd.jpg",
+			invalidsitename:"AV09",
+			sitename:"中文网站",
+			invalidsiteintro: "AV09",			
+			siteintro:"this is a test website~ welcome here.",
+			invalidsitelabels: ['','12345678901','AV09','123','123'],
+			sitelabels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'a', 'bb', 'ccc', 'd中文','1e', 'abc', 'keepwork','auto','knowledge'],
+			checkRes:{
+				savesuccess:"站点配置修改成功!!!",
+				savefailed:"您输入的内容不符合互联网安全规范，请修改",
+				savelabel: ["标签不能为空", "标签最长10个字", "您输入的内容不符合互联网安全规范，请修改", '', "该标签已添加"]
+			}
+		},
+		setup2: {
+			icon_path: "",
+			sitename: "mysite",
+			siteintro: "",			
+			sitelabels: ['news','keepwork']
 		}
     }
 }
