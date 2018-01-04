@@ -1,5 +1,5 @@
 /**
- *Create on 2017/11/06
+ * Create on 2017/11/06
  * Author : Duke
  * Description: 
  */
@@ -9,8 +9,7 @@ const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
 const page_config = require('../testcase/page_elements');
 const subjet = "success";
-const TYPE_SCCESS = 1;
-const TYPE_FAILED = 0;
+
 
 
 class extend_method{
@@ -182,7 +181,7 @@ class extend_method{
        }); 
     }
 
-    //从网站管理页面进行建站
+    //获取私有网站的数量和名称(根据指定数量进行获取，一般获取全部数据)
     async getPrivateWebsite(siteNum){
         let i = 0;
         let privatesite = 0;
@@ -207,7 +206,7 @@ class extend_method{
         }
         
     }
-
+    //给新建网站添加内容
     async AddSiteContent(content){
         try {
             let loc = page_config.mysite.editArea.splitTableft;  
@@ -258,9 +257,39 @@ class extend_method{
             await td.waitpage(1000);
         }
     }
+    //获取网站的设置信息
+    async getsiteSetting(){
+        let loc = [page_config.mysite.operation.setup.common.siteAddress,page_config.mysite.operation.setup.common.sitelabels.summary];
+        let script = "var t = document.getElementById('webName');" +
+                "return t.value;"
+        let name = await td.execScript(script);        
 
-    uploadBigfile(){
-
+        script = "var t = document.getElementById('intro');" +
+                    "return t.value;"
+        let introdata = await td.execScript(script);
+        
+        let siteinfo = await td.getElementsText(loc);
+        siteinfo.push(name);
+        siteinfo.push(introdata);
+        return siteinfo;
+    }
+    //上传文件
+    async uploadFile(loc,file){
+        console.log('file path is ' + file);
+        await td.inputData(loc, file);
+    }
+    //设置网站名称
+    async setsiteName(loc,data){
+        await td.inputData(loc,data);
+    }
+    //设置网站名称
+    async setsiteIntro(loc, data){
+        await td.inputData(loc, data);
+    }
+    //设置网站名称
+    async setsiteLabels(loc, data){
+        await td.inputData(loc[0],data);
+        await td.clickBylocator(loc[1]);
     }
 
 	sendReport(){

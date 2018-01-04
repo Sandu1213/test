@@ -50,31 +50,32 @@ class driver_method{
         }
     }
     
-    getElementsText(locator, sleepTime = 1000) {
+    async getElementsText(locator, sleepTime = 1000) {
 
         try {
             let driver = this.driver;
             let elsTxt = [];
-            this.getElement(locator).then(function (elements) {
+            await this.getElement(locator).then(async function (elements) {
                 if (Array.isArray(elements)) {
                     for (let i = 0; i < elements.length; i++) {
-                        let txt = elements[i].getText(); 
-                        console.log("txt iiiiii" + txt);                       
-                        driver.sleep(sleepTime);
-                        elsTxt.push(txt);
+                        let txt = await elements[i].getText().then(function (values) {
+                            return values;
+                        });                                               
+                        await driver.sleep(sleepTime);
+                        await elsTxt.push(txt);
                     }
                 } else {
-                    let txt = elements.getText();
-                    driver.sleep(sleepTime);
-                    elsTxt.push(txt);
+                    let txt = await elements.getText().then(function (values) {
+                        return values;
+                    }); 
+                    await driver.sleep(sleepTime);
+                    await elsTxt.push(txt);
                 }
             });
-            console.log("array is " + elsTxt)
             return elsTxt;   
         }
         catch (error) {
-            throw new Error(error);
-            return false;
+            throw new Error(error);            
         }
 
     }
@@ -102,33 +103,7 @@ class driver_method{
 
     }
 
-    // clickNum(locator, num,sleepTime = 1000) {
-    //     try {
-    //         let driver = this.driver;
-            
-    //         this.getElement(locator).then(function (elements) {
-
-    //             if (Array.isArray(elements)) {
-    //                 for (let i = 0; i < elements.length; i++) {
-    //                     elements[i].click();
-    //                     driver.sleep(sleepTime);
-    //                 }
-    //             } else {
-    //                 while(num >0){
-    //                     console.log('num is ' + num);
-    //                     elements.click();
-    //                     driver.sleep(sleepTime);
-    //                     num = num -1;
-    //                 }                    
-    //             }
-    //         });
-            
-    //     }
-    //     catch (error) {
-    //         throw new Error(error);
-    //     }
-
-    // }
+    
     //切换到iframe页，可传递index/id/name/webElement等
     switchToIFrame(iframe = 0){
         this.driver.switchTo().frame(iframe);
@@ -234,6 +209,14 @@ class driver_method{
         }
         
     }
+    async execScript(script){
+        try {
+            let res = await this.driver.executeScript(script);
+            return res;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
 
     getEleTxtByClassName(locator, num = 0) {
         try {
@@ -251,8 +234,7 @@ class driver_method{
             return pObj.then(function (values) {
                 return values;
             });
-        }
-        catch (e) {
+        } catch (e) {
             throw new Error(e);
         }
 
@@ -275,8 +257,7 @@ class driver_method{
             return pObj.then(function (values) {               
                 return values;
             });
-        }
-        catch (error) {
+        } catch (error) {
             throw new Error(error);
         }
 
@@ -289,7 +270,7 @@ class driver_method{
     checkResult(type,autual,expected){
        console.log("autual val is :  "+ autual + ", expected val is "+ expected);
        if(type == 'equal'){
-            return expect(autual).to.eql(expected);
+            return expect(autual).to.equal(expected);
        }else if(type == 'contain'){
             return expect(autual).to.contain(expected);
        }
