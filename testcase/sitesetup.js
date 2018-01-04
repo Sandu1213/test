@@ -37,7 +37,13 @@ module.exports = async function siteSetupTest(){
             let path = process.cwd();
             let platform = process.platform;
             console.log("platform is "+ platform +";path is " + path);
-            let imgsrc = path + testdata.sites.setup1.icon_path;
+            
+            let imgsrc = '';
+            if(platform == 'win32'){
+                imgsrc = path + testdata.sites.setup1.windowicon_path;
+            }else{
+                imgsrc = path + testdata.sites.setup1.linuxicon_path;
+            }            
             await ext.uploadFile(loc, imgsrc);
             await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
             await td.waitpage(2000);

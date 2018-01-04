@@ -151,7 +151,7 @@ class extend_method{
             await td.clickBylocator(page_config.tmppage.domain.nextstep);
             await td.waitpage(2000);
             await td.clickBylocator(page_config.tmppage.domain.nextstep);           
-            await td.waitpage(15000); 
+            await td.waitpage(20000); 
         } catch (error) {
             throw new Error(error);
         }        

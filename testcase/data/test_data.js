@@ -96,7 +96,8 @@ const Info = {
 			failed:"文件保存失败"
 		},
 		setup1:{
-			icon_path:"\\testcase\\img\\3rd.jpg",
+			windowicon_path:"\\testcase\\img\\3rd.jpg",
+			linuxicon_path:"/testcase/img/3rd.jpg",
 			invalidsitename:"AV09",
 			sitename:"中文网站",
 			invalidsiteintro: "AV09",			
