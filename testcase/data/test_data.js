@@ -52,7 +52,7 @@ const Info = {
 			password: '110111'
 		},
 		account:{
-			username:'test001',
+			username:'dukes',
 			password:'123456'
 		},
 		expectMsg:{
@@ -82,7 +82,20 @@ const Info = {
 		game:{
 			prepage:"全国3D创作大赛"
 		}
-	}
+	},
+	sites:{
+		sitename:"11",
+		siteAddress:"keepwork.com/test001/11",
+		check:{
+			pageval:'',
+			pagevalagin:'This is test page!'
+		},
+		content: 'This is test page!',
+		saveResult:{
+			success:"文件保存成功",
+			failed:"文件保存失败"
+		}
+    }
 }
 
 module.exports  = Info;

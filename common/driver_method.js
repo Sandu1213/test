@@ -102,33 +102,33 @@ class driver_method{
 
     }
 
-    clickNum(locator, num,sleepTime = 1000) {
-        try {
-            let driver = this.driver;
+    // clickNum(locator, num,sleepTime = 1000) {
+    //     try {
+    //         let driver = this.driver;
             
-            this.getElement(locator).then(function (elements) {
+    //         this.getElement(locator).then(function (elements) {
 
-                if (Array.isArray(elements)) {
-                    for (let i = 0; i < elements.length; i++) {
-                        elements[i].click();
-                        driver.sleep(sleepTime);
-                    }
-                } else {
-                    while(num >0){
-                        console.log('num is ' + num);
-                        elements.click();
-                        driver.sleep(sleepTime);
-                        num = num -1;
-                    }                    
-                }
-            });
+    //             if (Array.isArray(elements)) {
+    //                 for (let i = 0; i < elements.length; i++) {
+    //                     elements[i].click();
+    //                     driver.sleep(sleepTime);
+    //                 }
+    //             } else {
+    //                 while(num >0){
+    //                     console.log('num is ' + num);
+    //                     elements.click();
+    //                     driver.sleep(sleepTime);
+    //                     num = num -1;
+    //                 }                    
+    //             }
+    //         });
             
-        }
-        catch (error) {
-            throw new Error(error);
-        }
+    //     }
+    //     catch (error) {
+    //         throw new Error(error);
+    //     }
 
-    }
+    // }
     //切换到iframe页，可传递index/id/name/webElement等
     switchToIFrame(iframe = 0){
         this.driver.switchTo().frame(iframe);
@@ -169,13 +169,25 @@ class driver_method{
     //清空输入框内容
     async clearText(element){
         try {
-           await element.clear(); 
+            await element.clear(); 
         } catch (error) {
             throw new Error(error);
         }
 
     }
-    
+    //追加输入信息(无清空操作)
+    async appendData(locator,data,sleepTime = 1000){
+        try {
+            let driver = this.driver;
+            let elements = await this.getElement(locator);
+            await driver.actions().sendKeys(data).perform();
+            //await elements.sendKeys(data);
+            await driver.sleep(sleepTime);
+        } catch (error) {
+            throw new Error(error); 
+        }
+    }
+    //输入信息(有清空操作)
     async inputData(locator, data, sleepTime = 1000) {
 
         try {
