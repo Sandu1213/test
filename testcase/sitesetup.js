@@ -87,15 +87,15 @@ module.exports = async function siteSetupTest(){
             let loc = [page_config.mysite.operation.setup.common.sitelabels.input, page_config.mysite.operation.setup.common.sitelabels.addbtn];
             let data = testdata.sites.setup1.invalidsitelabels;
             let checkdata = testdata.sites.setup1.checkRes.savelabel;
-            data.forEach(async function (value,index) {
-                await console.log("value is " + value);
-                await ext.setsiteLabels(loc, value);
-                await td.waitpage(1000);
+            for(let i in data){
+                await console.log("value is " + data[i]);
+                await ext.setsiteLabels(loc, data[i]);
+                await td.waitpage(500);
                 await td.getElementText(page_config.mysite.operation.setup.common.sitelabels.check).then(function (values) {
-                    td.checkResult('equal', values, checkdata[index]);
+                    td.checkResult('equal', values, checkdata[i]);
                 });
-                await td.waitpage(2000);
-            });
+               
+            };
             //验证设置正确的标签
             // let newdata = testdata.sites.setup1.sitelabels;
             // newdata.forEach(async function (value, index) {

@@ -58,7 +58,16 @@ module.exports = async function siteManagementTest() {
         });
 
         step("#4.3  create a new site", async function () {
-            let sitename = testdata.sites.sitename; //目的是默认让最新的网站排在第一位便于后面核对(也可随机自定义，但后续校验需要调整下)
+            let site = await ext.getWebsiteInfo(1);
+            for(let index in site){
+               if( site[index].name == '11'){
+                   let loc = page_config.mysite.operation.remove;
+                   await ext.delWebsite(loc);
+                   await td.waitpage(2000);
+                   sites = sites - 1;
+                }                
+            }           
+            let sitename = testdata.sites.sitename; //目的是默认让最新的网站排在第一位便于核对(也可随机自定义，但后续校验需要调整下)
             await td.clickBylocator(page_config.mysite.create);
             await td.waitpage(2000);
             await ext.selectTemplates(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.blank.select, sitename); 
@@ -132,21 +141,20 @@ module.exports = async function siteManagementTest() {
         //     await ts.siteSetupTest();
         // });
         
-        // step("#4.10 delete the site", async function () {
-        //     let loc = page_config.mysite.operation.remove;
-        //     let ops = 'cancel';
-        //     //先取消删除再进行删除操作
-        //     await ext.delWebsite(loc,ops);
-        //     await ext.delWebsite(loc);
-        // });
+        step("#4.10 delete the site", async function () {
+            let loc = page_config.mysite.operation.remove;
+            let ops = 'cancel';
+            //先取消删除再进行删除操作
+            await ext.delWebsite(loc,ops);
+            await ext.delWebsite(loc);
+        });
 
-        // step("#4.11 check the site Num again", async function () {
-        //    await td.waitpage(2000);
-        //    let newNUM = await ext.getCurrentWebsiteNum();
-        //    console.log('After Del , the siteNum is ' + sites);
-        //    return td.checkResult('equal',newNUM,String(sites));
-
-        // });
+        step("#4.11 check the site Num again", async function () {
+           await td.waitpage(2000);
+           let newNUM = await ext.getCurrentWebsiteNum();
+           console.log('After Del , the siteNum is ' + sites);
+           return td.checkResult('equal',newNUM,String(sites));
+        });
 
     });
 };

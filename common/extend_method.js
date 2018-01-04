@@ -248,7 +248,7 @@ class extend_method{
         await td.waitpage(2000);
         await td.getElement({ "css": "h4#deleteWebsiteConfirmModalLabel" });
         await td.clickBylocator({ "css": "input[ng-model^='delete']" });
-        await td.waitpage(2000);
+        await td.waitpage(1000);
         if(options == 'confirm'){           
             await td.clickBylocator({ "css": "button[ng-click^='confirm']" });
             await td.waitpage(10000);
