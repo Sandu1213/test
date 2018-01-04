@@ -32,55 +32,55 @@ module.exports = async function siteSetupTest(){
             });
         });
 
-        // step('#4.9.2.1 modify the common settings - avatar', async function () {
-        //     let loc = page_config.mysite.operation.setup.common.icon_input;            
-        //     let path = process.cwd();
-        //     let platform = process.platform;
-        //     console.log("platform is "+ platform +";path is " + path);
-        //     let imgsrc = path + testdata.sites.setup1.icon_path;
-        //     await ext.uploadFile(loc, imgsrc);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
-        //     await td.waitpage(2000);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-        //     await td.waitpage(2000);
-        //     await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
-        //         td.checkResult('contain', values, testdata.sites.setup1.checkRes.savesuccess);
-        //     }); 
-        // });
+        step('#4.9.2.1 modify the common settings - avatar', async function () {
+            let loc = page_config.mysite.operation.setup.common.icon_input;            
+            let path = process.cwd();
+            let platform = process.platform;
+            console.log("platform is "+ platform +";path is " + path);
+            let imgsrc = path + testdata.sites.setup1.icon_path;
+            await ext.uploadFile(loc, imgsrc);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
+            await td.waitpage(2000);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
+                td.checkResult('contain', values, testdata.sites.setup1.checkRes.savesuccess);
+            }); 
+        });
 
-        // step('#4.9.2.2 modify the common settings - sitename', async function () {           
-        //     //验证设置不合理的网站名称(主要是关键字过滤相关)
-        //     await ext.setsiteName(page_config.mysite.operation.setup.common.sitename, testdata.sites.setup1.invalidsitename);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-        //     await td.waitpage(2000);
-        //     await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
-        //         td.checkResult('equal',values,testdata.sites.setup1.checkRes.savefailed);
-        //     });
-        //     //验证设置合理的网站名称
-        //     await ext.setsiteName(page_config.mysite.operation.setup.common.sitename, testdata.sites.setup1.sitename);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-        //     await td.waitpage(2000);
-        //     await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
-        //         td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
-        //     });          
-        // });
+        step('#4.9.2.2 modify the common settings - sitename', async function () {           
+            //验证设置不合理的网站名称(主要是关键字过滤相关)
+            await ext.setsiteName(page_config.mysite.operation.setup.common.sitename, testdata.sites.setup1.invalidsitename);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
+                td.checkResult('equal',values,testdata.sites.setup1.checkRes.savefailed);
+            });
+            //验证设置合理的网站名称
+            await ext.setsiteName(page_config.mysite.operation.setup.common.sitename, testdata.sites.setup1.sitename);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
+                td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
+            });          
+        });
 
-        // step('#4.9.2.3 modify the common settings - siteIntroduction', async function () {
-        //     //验证设置不合理的网站介绍
-        //     await ext.setsiteIntro(page_config.mysite.operation.setup.common.siteintro, testdata.sites.setup1.invalidsiteintro);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-        //     await td.waitpage(2000);
-        //     await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
-        //         td.checkResult('equal', values, testdata.sites.setup1.checkRes.savefailed);
-        //     });
-        //     //验证设置合理的网站介绍
-        //     await ext.setsiteIntro(page_config.mysite.operation.setup.common.siteintro, testdata.sites.setup1.siteintro);
-        //     await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-        //     await td.waitpage(2000);
-        //     await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
-        //         td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
-        //     }); 
-        // });
+        step('#4.9.2.3 modify the common settings - siteIntroduction', async function () {
+            //验证设置不合理的网站介绍
+            await ext.setsiteIntro(page_config.mysite.operation.setup.common.siteintro, testdata.sites.setup1.invalidsiteintro);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
+                td.checkResult('equal', values, testdata.sites.setup1.checkRes.savefailed);
+            });
+            //验证设置合理的网站介绍
+            await ext.setsiteIntro(page_config.mysite.operation.setup.common.siteintro, testdata.sites.setup1.siteintro);
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.saveResult).then(function (values) {
+                td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
+            }); 
+        });
 
         step('#4.9.2.4 modify the common settings - siteLabels', async function () {
             //验证设置错误的标签

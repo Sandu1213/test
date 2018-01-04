@@ -107,6 +107,7 @@ module.exports = async function domainTest() {
                 let sitename = 'basic' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();
                 console.log('sitename: '+ sitename);
                 await ext.selectTemplates(page_config.tmppage.personal.key,page_config.tmppage.personal.contains.basic.select, sitename);                 
+                let imgname = '3.2.2' + com.getTime();
                 await console.log("filename32 is" + imgname);
                 await td.SaveScreenshot(path, imgname);
                 return td.getElement(page_config.tmppage.domain.checksuccess);
