@@ -44,7 +44,8 @@ module.exports = async function siteSetupTest(){
             }else{
                 imgsrc = path + testdata.sites.setup1.linuxicon_path;
             }            
-            await ext.uploadFile(loc, imgsrc);
+            //await ext.uploadFile(loc, imgsrc);
+            await ext.uploadRemoteFile(loc,imgsrc);
             await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
             await td.waitpage(2000);
             await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
@@ -103,17 +104,17 @@ module.exports = async function siteSetupTest(){
                
             };
             //验证设置正确的标签
-            // let newdata = testdata.sites.setup1.sitelabels;
-            // newdata.forEach(async function (value, index) {
-            //     await ext.setsiteLabels(loc, value); 
-            //     await td.waitpage(500);
-            // });
-            // // await td.checkResult('equal',a,"最多支持20个标签");
-            // await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-            // await td.waitpage(2000);
-            // await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
-            //     td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
-            // });          
+            let newdata = testdata.sites.setup1.sitelabels;
+            for (let val of newdata) {
+                await ext.setsiteLabels(loc, val); 
+                await td.waitpage(500);
+            };
+            // await td.checkResult('equal',a,"最多支持20个标签");
+            await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
+            await td.waitpage(2000);
+            await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
+                td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
+            });          
         });
 
 

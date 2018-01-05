@@ -9,7 +9,7 @@ const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
 const page_config = require('../testcase/page_elements');
 const subjet = "success";
-
+let remote = require("selenium-webdriver/remote");
 
 
 class extend_method{
@@ -273,10 +273,18 @@ class extend_method{
         siteinfo.push(introdata);
         return siteinfo;
     }
-    //上传文件
+    //上传文件(针对本地测试的情况,eg:server:localhost)
     async uploadFile(loc,file){
         console.log('file path is ' + file);
         await td.inputData(loc, file);
+    }
+    //上传文件(针对远端的情况,eg:server:10.127.x.x)
+    async uploadRemoteFile(loc,file){
+        console.log('file path is ' + file);
+        let els = await td.getElement(loc);
+        await this.driver.setFileDetector(new remote.FileDetector());
+        await els.sendKeys(file);
+        await td.waitpage(1000);
     }
     //设置网站名称
     async setsiteName(loc,data){
