@@ -57,6 +57,7 @@ module.exports = async function siteSetupTest(){
 
         step('#4.9.2.2 modify the common settings - sitename', async function () {           
             //验证设置不合理的网站名称(主要是关键字过滤相关)
+            await td.waitpage(1000);
             await ext.setsiteName(page_config.mysite.operation.setup.common.sitename, testdata.sites.setup1.invalidsitename);
             await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
             await td.waitpage(2000);
@@ -111,7 +112,7 @@ module.exports = async function siteSetupTest(){
             };
             // await td.checkResult('equal',a,"最多支持20个标签");
             await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
-            await td.waitpage(2000);
+            await td.waitpage(3000);
             await td.getElementText(page_config.mysite.operation.setup.common.notice).then(function (values) {
                 td.checkResult('equal', values, testdata.sites.setup1.checkRes.savesuccess);
             });          
