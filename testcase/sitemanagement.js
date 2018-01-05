@@ -60,7 +60,7 @@ module.exports = async function siteManagementTest() {
         step("#4.3  create a new site", async function () {
             let site = await ext.getWebsiteInfo(1);
             for(let index in site){
-               if( site[index].name == '11'){
+               if(String(site[index].address).slice(-2) == '11'){
                    let loc = page_config.mysite.operation.remove;
                    await ext.delWebsite(loc);
                    await td.waitpage(2000);
@@ -154,6 +154,11 @@ module.exports = async function siteManagementTest() {
            let newNUM = await ext.getCurrentWebsiteNum();
            console.log('After Del , the siteNum is ' + sites);
            return td.checkResult('equal',newNUM,String(sites));
+        });
+
+        after(async function () {            
+            await td.waitpage(1000);
+            await ext.logout();
         });
 
     });
