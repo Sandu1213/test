@@ -151,8 +151,9 @@ var mysite = {
 				"siteintro": { "css": "#intro"},
 				"sitelabels": { 
 					"input": { "css": "div.col-sm-5 > div >input#tagInput"},
+					"overinput": { "css":"#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-8.add-label > input:nth-child(2)"},
 					"addbtn": { "css":"div.col-sm-4.btn.btn-primary.ng-binding[ng-click*='addTag']"},
-					"summary": { "css": "#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box"},
+					"summary": { "css": "#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div"},
 					"remove": { "css":"span[ng-click*='removeTag(tag)']"},
 					"check": { "css":"#common > div > div:nth-child(6) > div.col-sm-5.text-danger.control-label.ng-binding"}
 				},

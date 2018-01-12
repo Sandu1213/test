@@ -38,8 +38,10 @@ class driver_method{
             throw new Error(error);
         }
     }
-
-    
+    /**
+     * @params ---元素的location
+     * @back  --- 返回对应的promise对象
+     */
     async getElementText(locator) {
         try{                       
             let elements = await this.getElement(locator);            
@@ -49,7 +51,10 @@ class driver_method{
             throw new Error(error);
         }
     }
-    
+    /**
+     * @params ---元素的location
+     * @back  --- 返回对应的元素值
+     */
     async getElementsText(locator, sleepTime = 1000) {
 
         try {
@@ -79,7 +84,19 @@ class driver_method{
         }
 
     }
-    
+    /**
+     * @params ---元素的location和对应的属性
+     * @back  --- 返回对应属性的值
+     */
+    async getAttValue(loc,attrs){
+        let els = await this.getElement(loc);
+        let attval = await els.getAttribute(attrs);
+        return attval;
+    }
+    /**
+     * @params ---元素的location
+     * 
+     */
     async clickBylocator(locator, sleepTime = 1000) {
         try {            
             let driver = this.driver;
@@ -209,6 +226,7 @@ class driver_method{
         }
         
     }
+    //执行指定脚本
     async execScript(script){
         try {
             let res = await this.driver.executeScript(script);

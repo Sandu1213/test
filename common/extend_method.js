@@ -258,19 +258,21 @@ class extend_method{
         }
     }
     //获取网站的设置信息
-    async getsiteSetting(){
-        let loc = [page_config.mysite.operation.setup.common.siteAddress,page_config.mysite.operation.setup.common.sitelabels.summary];
-        let script = "var t = document.getElementById('webName');" +
-                "return t.value;"
-        let name = await td.execScript(script);        
-
-        script = "var t = document.getElementById('intro');" +
-                    "return t.value;"
-        let introdata = await td.execScript(script);
-        
-        let siteinfo = await td.getElementsText(loc);
+    async getsiteSetting(){        
+        let name = await td.getAttValue(page_config.mysite.operation.setup.common.sitename, 'value'); 
+        let address = await td.getElementText(page_config.mysite.operation.setup.common.siteAddress);     
+        let introdata = await td.getAttValue(page_config.mysite.operation.setup.common.siteintro, 'value');
+        let script =  "var t = document.querySelectorAll('#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div');"
+                    + "var res = [];"
+                    + "for(let item of t){"
+                    + "   res.push(item.innerText);"
+                    + "};" + " return res;"
+        let summary = await td.execScript(script);        
+        let siteinfo = [];
         siteinfo.push(name);
+        siteinfo.push(address);
         siteinfo.push(introdata);
+        siteinfo.push(summary);
         return siteinfo;
     }
     //上传文件(针对本地测试的情况,eg:server:localhost)
