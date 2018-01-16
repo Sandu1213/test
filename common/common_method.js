@@ -48,10 +48,14 @@ class common_func{
    static getDate(){
         let d = new Date();
         let day = d.getDate();
+        let month = (d.getMonth() + 1);
+        if(month < 10) {
+            month = '0' + month;
+        }
         if(day < 10){
             day = '0' + day;
-        }        
-        let date = d.getFullYear() + '' + (d.getMonth()+1) +  '' + day;        
+        }              
+        let date = d.getFullYear() + '' + month +  '' + day;        
      	return date;
 
    }

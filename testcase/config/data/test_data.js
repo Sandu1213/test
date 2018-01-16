@@ -96,8 +96,8 @@ const Info = {
 			failed:"文件保存失败"
 		},
 		setup1:{
-			windowicon_path:"\\testcase\\img\\3rd.jpg",
-			linuxicon_path:"/testcase/img/3rd.jpg",
+			windowicon_path:"\\testcase\\config\\img\\logo1.jpg",
+			linuxicon_path:"/testcase/config/img/logo1.jpg",
 			invalidsitename:"AV09",
 			sitename:"中文网站",
 			invalidsiteintro: "AV09",			
@@ -112,10 +112,20 @@ const Info = {
 			}
 		},
 		setup2: {
-			icon_path: "",
+			windowicon_path: "\\testcase\\config\\logo2.jpg",
+			linuxicon_path: "/testcase/config/img/logo2.jpg",
 			sitename: "mysite",
-			siteintro: "",			
-			sitelabels: ['news','keepwork']
+			siteintro: "This is website created by keepwork, welcome to here~",			
+			sitelabels: ['news','keepwork','ADI']
+		},
+		datasource:{
+			data:"官方git数据源"
+		},
+		DomainName:{
+			noVip_notes:'* 您还不是VIP，不能设置cname 成为VIP'
+		},
+		permissions:{
+
 		}
     }
 }

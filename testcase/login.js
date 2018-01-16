@@ -11,8 +11,8 @@ const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
 let ext = new extend_method(dev.driver);
 
-const page_config = require('./page_elements');
-const testdata = require('./data/test_data')
+const page_config = require('./config/data/page_elements');
+const testdata = require('./config/data/test_data');
 let path = 'report/image/' + dev.date + '/';
 
 let filename = 'account.txt';

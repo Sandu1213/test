@@ -284,7 +284,7 @@ class driver_method{
     scrollTo(locator,begin,end){
 
     }
-    
+    //校验结果
     checkResult(type,autual,expected){
        console.log("autual val is :  "+ autual + ", expected val is "+ expected);
        if(type == 'equal'){
@@ -294,7 +294,7 @@ class driver_method{
        }
        
     }
-
+    //保存屏幕截图
     SaveScreenshot(dirpath,filename){
    	   try{
               

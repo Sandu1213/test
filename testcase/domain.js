@@ -11,8 +11,8 @@ const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
 let ext = new extend_method(dev.driver);
 
-const page_config = require('./page_elements');
-const testdata = require('./data/test_data')
+const page_config = require('./config/data/page_elements');
+const testdata = require('./config/data/test_data');
 let path = 'report/image/' + dev.date + '/';
 
 let filename = 'account.txt';
@@ -34,18 +34,18 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();                
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.blank.select,
                     page_config.tmppage.personal.contains.blank.preview);
                 
-                await td.switchToNewWindow(current_window.value_);                                
+                await td.switchToNewWindow(current_window);                                
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.blank.Prepagecheck,
                     testdata.tmppage.personal.blankpage);
                 let imgname = 'blankpreview' + com.getTime();
                 await td.SaveScreenshot(path, imgname);
                 await td.waitpage(2000);
                 await td.closeNewwindow();                
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
                 
                 
             } catch (error) {
@@ -80,11 +80,11 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.basic.select,
                     page_config.tmppage.personal.contains.basic.preview);
                 
-                await td.switchToNewWindow(current_window.value_);
+                await td.switchToNewWindow(current_window);
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.basic.Prepagecheck,
                     testdata.tmppage.personal.basicpage);
                 let imgname = 'basicpreview' + com.getTime();                
@@ -92,7 +92,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
                 
                 
             } catch (error) {
@@ -121,11 +121,11 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.resume.select,
                     page_config.tmppage.personal.contains.resume.preview);
                 
-                await td.switchToNewWindow(current_window.value_);
+                await td.switchToNewWindow(current_window);
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.resume.Prepagecheck,
                     testdata.tmppage.personal.resumepage);
                 let imgname = 'resumepreview' + com.getTime();
@@ -134,7 +134,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
                 
 
             } catch (error) {
@@ -162,11 +162,11 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.vip.select,
                     page_config.tmppage.personal.contains.vip.preview);
                 
-                await td.switchToNewWindow(current_window.value_);
+                await td.switchToNewWindow(current_window);
                 
                 await ext.checkPreviewResult(page_config.tmppage.personal.contains.vip.Prepagecheck,
                    testdata.tmppage.personal.vippage);
@@ -175,7 +175,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
                 
 
             } catch (error) {
@@ -204,11 +204,11 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company1.select,
                     page_config.tmppage.company.contains.company1.preview);
                 
-                await td.switchToNewWindow(current_window.value_);                
+                await td.switchToNewWindow(current_window);                
                 await ext.checkPreviewResult(page_config.tmppage.company.contains.company1.Prepagecheck,
                     testdata.tmppage.company.prepage1);
                 let imgname = 'company1preview' + com.getTime();
@@ -216,7 +216,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
 
 
             } catch (error) {
@@ -243,11 +243,11 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company2.select,
                     page_config.tmppage.company.contains.company2.preview);
                
-                await td.switchToNewWindow(current_window.value_);                
+                await td.switchToNewWindow(current_window);                
                 await ext.checkPreviewResult(page_config.tmppage.company.contains.company2.Prepagecheck,
                     testdata.tmppage.company.prepage2);
                 let imgname = 'company2preview' + com.getTime();
@@ -255,7 +255,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
 
 
             } catch (error) {
@@ -283,10 +283,10 @@ module.exports = async function domainTest() {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.group.key, page_config.tmppage.group.contains.group.select,
                     page_config.tmppage.group.contains.group.preview);                
-                await td.switchToNewWindow(current_window.value_);
+                await td.switchToNewWindow(current_window);
                 
                 await ext.checkPreviewResult(page_config.tmppage.group.contains.group.Prepagecheck,
                     testdata.tmppage.group.prepage);
@@ -295,7 +295,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
 
             } catch (error) {
                 console.log(error);
@@ -318,14 +318,14 @@ module.exports = async function domainTest() {
 
         });
 
-        step('#3.8.1 check game-templates  ', async function () {
+        step('#3.8.1 check game-templates ', async function () {
 
             try {
                 await ext.enterDomain();
-                let current_window = dev.driver.getWindowHandle();
+                let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.game.key, page_config.tmppage.game.contains.game.select,
                     page_config.tmppage.game.contains.game.preview);                
-                await td.switchToNewWindow(current_window.value_);
+                await td.switchToNewWindow(current_window);
                 
                 await ext.checkPreviewResult(page_config.tmppage.game.contains.game.Prepagecheck,
                     testdata.tmppage.game.prepage);
@@ -334,7 +334,7 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();
                 await td.waitpage(1000);
-                await td.switchToDefaultWindow(current_window.value_);
+                await td.switchToDefaultWindow(current_window);
 
 
             } catch (error) {

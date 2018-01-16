@@ -161,25 +161,87 @@ var mysite = {
 				"savebtn": { "css": "#common > div > div:nth-child(7) > div > button[ng-click='modifyWebsite()']"},
 				"saveResult": { "css":"div#messageTipConentId"}
 			},
-			"datasource": {"css": "select[ng-model='dataSourceName']"},
-			"Domainname":{
+			"datasource": {				
+				"key": { "css": "a[href *= '#datasource']"},
+				"data": {"css": "select[ng-model^='dataSourceName']"}
+			},
+			"domainname": { 
+				"key": { "css":"a[href^='#domain']"},
 				"webAddress": { "css":"#domain > form > div:nth-child(2) > div > p"},
 				"webdomain": { "css":"#domain > form > div:nth-child(3) > div > p"},
 				"cname":{
-					"summary":{},
+					"summary": {},
 					"add":{
 						"input":{},
 						"addbtn":{}
 					},
-					"notice":{}
+					"notes": {"css":"div[ng-hide='user.vipInfo.isValid']"},
+					"becomevip": { "css":"div[ng-hide='user.vipInfo.isValid'] > a"}
 				}
 			},
-			"Permissions": { "css": "#domain > form > div:nth-child(3) > div > p" }
+			"Permissions": { 
+				"key": {"css": "a[href^='#permission']"},
+				"description":{
+					"address": { "css": "#permission > div.inner-info > h4"},
+					"innerInfo": {
+						"content1":{"css": "#permission > div.inner-info > p:nth-child(2)"},
+					    "content2":{"css": "#permission > div.inner-info > p:nth-child(3)"},
+						"content3":{"css": "#permission > div.inner-info > p:nth-child(4)"},
+					}
+				},
+				"siteType":{
+					"warnning": { "css":"#permission > div.change-type > div > p:nth-child(1)"},
+					"becomevip": { "css":"#permission > div.change-type > div > p > a[href='/wiki/vip']"},
+					"public": { 
+						"select": { "css": "input#publicItem" },
+						"name": {"css": "label[for^='publicItem']"},
+						"des": { "css": "#permission > div.change-type > div > div:nth-child(2) > p"}
+					},
+					"private": {
+						"select": { "css": "input#privateItem" },
+						"name": { "css": "label[for^='privateItem']"},
+						"des": { "css": "#permission > div.change-type > div > div:nth-child(3) > p"}
+					}
+				},				
+				"Rights":{
+					"key": { "css": "a[href^='#authorize']"},
+					"selectGroup": { "css": "#authorize > form > div:nth-child(2) > div > select > option:nth-child(1)"},  //排序第一的分组
+					"selectRight": { "css": "#authorize > form > div:nth-child(3) > div > select > option:nth-child(1)"},  //浏览的权限
+					"addbtn": { "css": "#authorize > form > div.col-sm-12.save-setting > button"},
+					"info": {
+						"gname": { "css": "#authorize > table > tbody > tr:nth-child(2) > td:nth-child(1)" },
+						"gpermission": { "css": "#authorize > table > tbody > tr:nth-child(2) > td:nth-child(2)" },
+						"operation": {							
+							"del": { "css": "#authorize > table > tbody > tr:nth-child(2) > td:nth-child(3)" }
+						}
+					}
+				},
+				"group":{
+					"key": {"css": "a[href^='#grouping']" },
+					"name": {"css": "input#groupName"},
+					"createbtn": {"css": "div[ng-click='createGroup()']"},
+					"inputmember": { "css":"input#groupUserName"},
+					"addbtn": { "css":"div[ng-click='addUser()']"},
+					"memberlist": { "css": "#grouping > form > div:nth-child(3) > div > div.col-sm-12.labels-box >div"},
+					"backbtn": { "css": "div[ng-click*='editGroup']"},
+					"info":{
+						"gname": { "css": "#grouping > table > tbody > tr:nth-child(1) > td:nth-child(1)"},
+						"gmember": { "css": "#grouping > table > tbody > tr:nth-child(1) > td:nth-child(2)"},
+						"operation":{
+							"edit": { "css": "#grouping > table > tbody > tr:nth-child(1) > td:nth-child(3)>a:nth-child(1)"},
+							"del": { "css": "#grouping > table > tbody > tr:nth-child(1) > td:nth-child(3)>a:nth-child(2)"}
+						}
+					}
+				}
+			}
 		},		
-		"remove": { "css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(4)"},
-		"delWindowTitle": { "css":"h4#deleteWebsiteConfirmModalLabel"},
-		"confirm_btn": { "css":"button[ng-click*='confirm']"},
-		"cancel_btn": {"css":"button.btn.btn-default.ng-binding[data-dismiss*='modal']"}
+		"remove": { 
+			"key":{"css": "div.flex-table > div:nth-child(3) > div:nth-child(4) > a:nth-child(4)"},
+			"delWindowTitle": {"css":"h4#deleteWebsiteConfirmModalLabel"},
+			"clearDataSource": { "css": "input[ng-model^='delete']" },
+			"confirm_btn": {"css": "button[ng-click^='confirm']"},
+			"cancel_btn": {"css": "button.btn.btn-default.ng-binding[data-dismiss^='mod']"}
+		}
 	},
 	"editArea":{
 		"loc": { "css":"div.CodeMirror-code > div:nth-child(1) > pre.CodeMirror-line"},
@@ -194,6 +256,26 @@ var mysite = {
 	}
 }
 
+var purchaseVip = {
+	"description":{
+		"freeAccount":{},
+		"vipAccount":{}
+	},
+	"level":{
+		"oneMonth":{},
+		"halfYear": {},
+		"oneYear": {}
+	},	
+	"channel":{
+		"wechat": {"css": "ul > li[ng-click*='wechat']"},
+		"alipay": { "css": "ul > li[ng-click*='alipay']"}
+	},
+	"rechargeAccount": { "css": "div.pay-main-field > div:nth-child(1) > input"},
+	"rechargeAmount": { "css": "div.pay-main-field > div:nth-child(2) > div > input"},
+	"rechargeInfo": { "css":"div.pay-main-field > div.field-item.ng-scope > div"},
+	"purchasebtn": { "css":"div[ng-click*='selectedVip']"},
+	"rechargebtn": { "css":"div.field-item > input[ng-click*='recharge()']"}
+}
 
 
 var signIn = {
@@ -216,5 +298,5 @@ var signUp = {
 	"gotohome":{"css":"div[ng-click='goUserHome()']"}
 }
 
-module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage,mysite};
+module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip};
 

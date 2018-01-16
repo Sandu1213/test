@@ -7,7 +7,7 @@ const send = require('./sendEmail');
 const dev = require('../common/dev');
 const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
-const page_config = require('../testcase/page_elements');
+const page_config = require('../testcase/config/data/page_elements');
 const subjet = "success";
 let remote = require("selenium-webdriver/remote");
 
@@ -118,6 +118,12 @@ class extend_method{
                 console.log('the model is not found~')
                 break;
         }
+    }
+
+    //切换到不同的tab页(通用的)
+    async switchTabpage(tabpage) {
+        await td.clickBylocator(tabpage);
+        await td.waitpage(2000); 
     }
 
     //实名弹窗
@@ -246,14 +252,14 @@ class extend_method{
     async delWebsite(sitelocator,options='confirm'){
         await td.clickBylocator(sitelocator);
         await td.waitpage(2000);
-        await td.getElement({ "css": "h4#deleteWebsiteConfirmModalLabel" });
-        await td.clickBylocator({ "css": "input[ng-model^='delete']" });
+        await td.getElement(page_config.mysite.operation.remove.delWindowTitle);
+        await td.clickBylocator(page_config.mysite.operation.remove.clearDataSource);
         await td.waitpage(1000);
         if(options == 'confirm'){           
-            await td.clickBylocator({ "css": "button[ng-click^='confirm']" });
+            await td.clickBylocator(page_config.mysite.operation.remove.confirm_btn);
             await td.waitpage(10000);
         }else{
-            await td.clickBylocator({ "css": "button.btn.btn-default.ng-binding[data-dismiss^='mod']"});
+            await td.clickBylocator(page_config.mysite.operation.remove.cancel_btn);
             await td.waitpage(1000);
         }
     }
@@ -262,12 +268,7 @@ class extend_method{
         let name = await td.getAttValue(page_config.mysite.operation.setup.common.sitename, 'value'); 
         let address = await td.getElementText(page_config.mysite.operation.setup.common.siteAddress);     
         let introdata = await td.getAttValue(page_config.mysite.operation.setup.common.siteintro, 'value');
-        let script =  "var t = document.querySelectorAll('#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div');"
-                    + "var res = [];"
-                    + "for(let item of t){"
-                    + "   res.push(item.innerText);"
-                    + "};" + " return res;"
-        let summary = await td.execScript(script);        
+        let summary = await this.getsiteLabels();
         let siteinfo = [];
         siteinfo.push(name);
         siteinfo.push(address);
@@ -300,6 +301,44 @@ class extend_method{
     async setsiteLabels(loc, data){
         await td.inputData(loc[0],data);
         await td.clickBylocator(loc[1]);
+    }
+    //购买VIP(按照默认一个月进行购买)
+    async buyVip(enter,channel){
+        await td.clickBylocator(enter);
+        await td.waitpage(2000);
+        //await this.selectVip()   //目前按照默认等级进行购买的       
+        let url= await this.driver.getCurrentUrl().then(async function (val) {
+            return val;              
+        });
+        console.log('url' + url);
+        let curwindow = await this.driver.getWindowHandle();        
+        if(!url.includes('vip')){
+            await td.switchToNewWindow(curwindow);
+            await td.clickBylocator(page_config.purchaseVip.purchasebtn);
+            await td.clickBylocator(page_config.purchaseVip.rechargebtn);
+            await td.waitpage(2000);
+            await td.closeNewwindow();            
+            await td.switchToDefaultWindow(curwindow);
+        }else{
+            await td.clickBylocator(page_config.purchaseVip.purchasebtn);
+            await td.clickBylocator(page_config.purchaseVip.rechargebtn);
+            await td.waitpage(2000);
+        }
+        
+    }
+    //选择不同等级的VIP
+    async selectVip(level){
+        await td.clickBylocator(level);
+    }
+    //获取网站已有标签信息
+    async getsiteLabels(){
+        let script = "var t = document.querySelectorAll('#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div');"
+            + "var res = [];"
+            + "for(let item of t){"
+            + "   res.push(item.innerText);"
+            + "};" + " return res;"
+        let summary = await td.execScript(script);  
+        return summary; 
     }
 
 	sendReport(){

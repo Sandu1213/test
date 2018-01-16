@@ -1,3 +1,8 @@
+/**
+ * Create on 2017/12/20
+ * Author : Duke
+ * Description: verify function  website Management
+ */
 'use strict';
 const dev = require('../common/dev');
 //const com = require('../common/common_method');
@@ -5,8 +10,8 @@ const extend_method = require('../common/extend_method');
 const driver_method = require('../common/driver_method');
 let td = new driver_method(dev.driver);
 let ext = new extend_method(dev.driver);
-let page_config = require('./page_elements');
-let testdata = require('./data/test_data');
+const page_config = require('./config/data/page_elements');
+const testdata = require('./config/data/test_data');
 let sites = 0;  //网站数量
 const ts = require('../testcase/testscope');
 
@@ -61,7 +66,7 @@ module.exports = async function siteManagementTest() {
             let site = await ext.getWebsiteInfo(1);
             for(let index in site){
                if(String(site[index].address).slice(-2) == '11'){
-                   let loc = page_config.mysite.operation.remove;
+                   let loc = page_config.mysite.operation.remove.key;
                    await ext.delWebsite(loc);
                    await td.waitpage(2000);
                    sites = sites - 1;
@@ -142,7 +147,7 @@ module.exports = async function siteManagementTest() {
         // });
         
         step("#4.10 delete the site", async function () {
-            let loc = page_config.mysite.operation.remove;
+            let loc = page_config.mysite.operation.remove.key;
             let ops = 'cancel';
             //先取消删除再进行删除操作
             await ext.delWebsite(loc,ops);
