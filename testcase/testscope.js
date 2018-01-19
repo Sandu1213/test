@@ -7,4 +7,5 @@ const loginTest = require('./login');
 const domainTest = require('./domain');
 const siteManagementTest = require('./sitemanagement');
 const siteSetupTest = require('./sitesetup');
-module.exports = { sigupTest, loginTest, domainTest, siteManagementTest, siteSetupTest};
+const userCenterTest = require('./usercenter');
+module.exports = { sigupTest, loginTest, domainTest, siteManagementTest, siteSetupTest, userCenterTest};

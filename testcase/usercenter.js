@@ -11,7 +11,7 @@ let ext = new extend_method(dev.driver);
 const page_config = require('./config/data/page_elements');
 const testdata = require('./config/data/test_data');
 
-module.exports = async function siteSetupTest() {
+module.exports = async function userCenterTest() {
     describe('usercenter validate', async function () {
         this.timeout(0);
         before(async function () {

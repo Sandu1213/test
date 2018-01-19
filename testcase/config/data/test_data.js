@@ -52,8 +52,12 @@ const Info = {
 			password: '110111'
 		},
 		account:{
-			username:'testvip',
+			username:'test1',
 			password:'123456'
+		},
+		bindaccount:{
+			mobile:'15219498528',
+			email:'dslhmily@gmail.com'
 		},
 		expectMsg:{
 			emptyaccount:'*用户名或密码错误',
@@ -125,7 +129,20 @@ const Info = {
 			noVip_notes:'* 您还不是VIP，不能设置cname 成为VIP'
 		},
 		permissions:{
-
+			sitetype:{
+				public:'公有项目',
+				private:'私有项目'
+			},
+			Right:{
+				browser:'浏览',
+				edit:'编辑',
+				rejust:'拒绝'
+			},
+			group:{
+				name:"123",
+				member:["test1","testvip"],
+				modify:"test3"
+			}
 		}
     }
 }

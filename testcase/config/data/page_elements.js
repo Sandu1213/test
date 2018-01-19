@@ -14,7 +14,10 @@ var homepage = {
 	"exit": { "css": "a[ng-click*='logout()']"},
 	"mainpage": { "css":"a.ng-scope[translate='我的主页']"},
 	"siteManagement": { "css":"a[ng-click*='websiteManager']"},
-	"pageEditor": { "css":"a[ng-click*='goWikiEditorPage()']"},
+	"pageEditor": { "css":"a[ng-click*='goWikiEditorPage()']"},	
+	"setupCenter": { "css":"a[ng-click*='userProfile']"},
+	"skyDriver": { "css": "a[ng-click*='qiniuPan']"},
+	"vipenter": { "css": "a[ng-click*='myVIP']"},
 	"checktext": { "id": "total-err" }
 }
 
@@ -205,8 +208,8 @@ var mysite = {
 				},				
 				"Rights":{
 					"key": { "css": "a[href^='#authorize']"},
-					"selectGroup": { "css": "#authorize > form > div:nth-child(2) > div > select > option:nth-child(1)"},  //排序第一的分组
-					"selectRight": { "css": "#authorize > form > div:nth-child(3) > div > select > option:nth-child(1)"},  //浏览的权限
+					"selectGroup": { "css": "#authorize > form > div:nth-child(2) > div > select "},  //排序第一的分组
+					"selectRight": { "css": "#authorize > form > div:nth-child(3) > div > select "},  //浏览的权限
 					"addbtn": { "css": "#authorize > form > div.col-sm-12.save-setting > button"},
 					"info": {
 						"gname": { "css": "#authorize > table > tbody > tr:nth-child(2) > td:nth-child(1)" },
