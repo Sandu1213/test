@@ -259,6 +259,49 @@ var mysite = {
 	}
 }
 
+var setupCenter = {
+	"profile":{
+		"key": { "css":"#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(1)"},
+		"title": { "css":"#userCenterSubPage > div > div:nth-child(1) > div.panel-heading.ng-scope"},
+		"inputavatar": { "css": "#userCenterSubPage > div > div:nth-child(1) > div.panel-body > div.col-md-3.preview-zone > p > input[type='file']" },
+		"nickname": { "css":"input#displayName"},
+		"sex":{
+			"male": { "css":"input#inlineRadio1"},
+			"female": { "css": "input#inlineRadio2" },
+			"secrecy": { "css": "input#inlineRadio3" }
+		},
+		"position": { "css": "input#location" },
+		"intro": { "css": "#data-form > div:nth-child(5) > div > textarea" },
+		"Savebtn": { "css": " button[ng-click*='saveProfile']" }
+	},
+	"account":{
+		"key": { "css": "#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(2)" },
+		"ChangepwdTab":{
+			"key": { "css":"a[href='#change']"},
+			"oldpwd": { "css": "input#old" },
+			"newpwd": { "css": "input#new" },
+			"repeatpwd": { "css": "input#reNew" },
+			"modifybtn": { "css": "button[ng-click='modifyPassword()']" },
+		},
+		"BindTab":{
+			"key": { "css": "a[href^='#verify']" },
+			"email": { "css": "" },
+			"mobile": { "css": "" },
+			"QQ": { "css": "" },
+			"wechat": { "css": "" },
+			"blog": { "css": "" },
+			"github": { "css": "" },
+		}
+	},
+	"tiding":{},
+	"attention":{},
+	"history":{},
+	"fans":{},
+	"realName":realNamepage,
+	"datasource":{}
+
+}
+
 var purchaseVip = {
 	"description":{
 		"freeAccount":{},
@@ -301,5 +344,5 @@ var signUp = {
 	"gotohome":{"css":"div[ng-click='goUserHome()']"}
 }
 
-module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip};
+module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip, setupCenter};
 

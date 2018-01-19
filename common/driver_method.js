@@ -17,7 +17,18 @@ class driver_method{
         this.driver = driver;
         //this.args = args;       
     }
-       
+    //获取当前文件路径
+    async getSyspath(){       
+        let path = await process.cwd();
+        return path;
+    }
+    //判断是否是windows系统
+    async isWindows(){
+        let paltform = await process.platform;
+        return ((paltform =='win32')?true:false);
+    }
+
+
    /**
    	* @params locators --- findElement by locators (eg:webdriver.js#L885)
    	* @return elements info    
