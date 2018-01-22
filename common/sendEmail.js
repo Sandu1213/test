@@ -28,8 +28,8 @@ function setMailServer(from, to, subject, context, files, attfiles) {
         secureConnection: true,     // 使用 SSL
         port: 465,                  // SMTP 端口 465
         auth: {
-         user: "dslhmily@163.com",  // 账号
-         pass: "Test138528"         // 授权码         
+         user: "XXXX@163.com",  // 账号
+         pass: "XXXX"         // 授权码         
         }
     }));
 
