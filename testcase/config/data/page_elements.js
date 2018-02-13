@@ -14,7 +14,10 @@ var homepage = {
 	"exit": { "css": "a[ng-click*='logout()']"},
 	"mainpage": { "css":"a.ng-scope[translate='我的主页']"},
 	"siteManagement": { "css":"a[ng-click*='websiteManager']"},
-	"pageEditor": { "css":"a[ng-click*='goWikiEditorPage()']"},
+	"pageEditor": { "css":"a[ng-click*='goWikiEditorPage()']"},	
+	"setupCenter": { "css":"a[ng-click*='userProfile']"},
+	"skyDriver": { "css": "a[ng-click*='qiniuPan']"},
+	"vipenter": { "css": "a[ng-click*='myVIP']"},
 	"checktext": { "id": "total-err" }
 }
 
@@ -205,8 +208,8 @@ var mysite = {
 				},				
 				"Rights":{
 					"key": { "css": "a[href^='#authorize']"},
-					"selectGroup": { "css": "#authorize > form > div:nth-child(2) > div > select > option:nth-child(1)"},  //排序第一的分组
-					"selectRight": { "css": "#authorize > form > div:nth-child(3) > div > select > option:nth-child(1)"},  //浏览的权限
+					"selectGroup": { "css": "#authorize > form > div:nth-child(2) > div > select "},  //排序第一的分组
+					"selectRight": { "css": "#authorize > form > div:nth-child(3) > div > select "},  //浏览的权限
 					"addbtn": { "css": "#authorize > form > div.col-sm-12.save-setting > button"},
 					"info": {
 						"gname": { "css": "#authorize > table > tbody > tr:nth-child(2) > td:nth-child(1)" },
@@ -256,6 +259,54 @@ var mysite = {
 	}
 }
 
+var setupCenter = {
+	"profile":{
+		"key": { "css":"#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(1)"},
+		"title": { "css":"#userCenterSubPage > div > div:nth-child(1) > div.panel-heading.ng-scope"},
+		"inputavatar": { "css": "#userCenterSubPage > div > div:nth-child(1) > div.panel-body > div.col-md-3.preview-zone > p > input[type='file']" },
+		"saveavatarbtn":{"css":"a#finish"},
+		"nickname": { "css":"input#displayName"},
+		"sex":{
+			"male": { "css":"input#inlineRadio1"},
+			"female": { "css": "input#inlineRadio2" },
+			"secrecy": { "css": "input#inlineRadio3" }
+		},
+		"position": { "css": "input#location" },
+		"intro": { "css": "#data-form > div:nth-child(5) > div > textarea" },
+		"Savebtn": { "css": " button[ng-click*='saveProfile']" },
+		"saveResult": { "css": "div#messageTipConentId"},
+		"notice": { "css":"#data-form > div:nth-child(6) > div > p:nth-child(1)"},
+		"overPos": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(2)" },
+		"overIntro": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(3)" },
+	},
+	"account":{
+		"key": { "css": "#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(2)" },
+		"ChangepwdTab":{
+			"key": { "css":"a[href='#change']"},
+			"oldpwd": { "css": "input#old" },
+			"newpwd": { "css": "input#new" },
+			"repeatpwd": { "css": "input#reNew" },
+			"modifybtn": { "css": "button[ng-click='modifyPassword()']" },
+		},
+		"BindTab":{
+			"key": { "css": "a[href^='#verify']" },
+			"email": { "css": "" },
+			"mobile": { "css": "" },
+			"QQ": { "css": "" },
+			"wechat": { "css": "" },
+			"blog": { "css": "" },
+			"github": { "css": "" },
+		}
+	},
+	"tiding":{},
+	"attention":{},
+	"history":{},
+	"fans":{},
+	"realName":realNamepage,
+	"datasource":{}
+
+}
+
 var purchaseVip = {
 	"description":{
 		"freeAccount":{},
@@ -298,5 +349,5 @@ var signUp = {
 	"gotohome":{"css":"div[ng-click='goUserHome()']"}
 }
 
-module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip};
+module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip, setupCenter};
 

@@ -35,19 +35,9 @@ module.exports = async function siteSetupTest(){
         });
 
         step('#4.9.2.1 modify the common settings - avatar', async function () {
-            let loc = page_config.mysite.operation.setup.common.icon_input;            
-            let path = process.cwd();
-            let platform = process.platform;
-            console.log("platform is "+ platform +";path is " + path);
-            
-            let imgsrc = '';
-            if(platform == 'win32'){
-                imgsrc = path + testdata.sites.setup1.windowicon_path;
-            }else{
-                imgsrc = path + testdata.sites.setup1.linuxicon_path;
-            }            
-            //await ext.uploadFile(loc, imgsrc);
-            await ext.uploadRemoteFile(loc,imgsrc);
+            let loc = page_config.mysite.operation.setup.common.icon_input; 
+            let file = testdata.sites.setup1.siteicon;
+            await ext.setAvatar(loc, file);            
             await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
             await td.waitpage(2000);
             await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);
@@ -169,10 +159,27 @@ module.exports = async function siteSetupTest(){
         step('#4.9.6 purchase the vip account', async function () {
             await ext.buyVip(page_config.mysite.operation.setup.domainname.cname.becomevip);
         });
-
-        step('#4.9.7 the permissions setup and validate', async function () {
+        // //先简单验证，后续可以扩展完善
+        step('#4.9.7 permissions - add Group and member', async function () { 
             await ext.switchTabpage(page_config.mysite.operation.setup.Permissions.key);
-           
+            // let groupname = testdata.sites.permissions.group.name;
+            // let users = testdata.sites.permissions.group.member;
+            // await ext.addsiteGroup(groupname);
+            // await ext.addGroupMember(users);            
+        });
+
+        step('#4.9.8 permissions - set the right', async function () {
+            await ext.switchTabpage(page_config.mysite.operation.setup.Permissions.Rights.key);
+            await ext.modifyPermission(); 
+        });
+
+        step('#4.9.9 permissions - add Group and member', async function () {
+            
+        });
+
+        after(async function () {
+            // await td.waitpage(1000);
+            // await ext.logout();
         });
     });
 };

@@ -29,7 +29,7 @@ class extend_method{
     //进行登陆验证
     async login(username, password){
         await this.driver.getCurrentUrl().then(async function (url) {
-            console.log('current url is ' + url);            
+            await console.log('current url is ' + url);            
             try {
                 if (String(url).includes('home')) {
                     let locarr = [page_config.homepage.username, page_config.homepage.password, page_config.homepage.login];
@@ -92,8 +92,7 @@ class extend_method{
             case 'mainpage':
                 await td.clickBylocator(page_config.homepage.avator);
                 await td.waitpage(2000);
-                await td.clickBylocator(page_config.homepage.mainpage);
-                
+                await td.clickBylocator(page_config.homepage.mainpage);                
                 break;
             case 'siteManagement':
                 await td.clickBylocator(page_config.homepage.avator);
@@ -106,13 +105,19 @@ class extend_method{
                 await td.clickBylocator(page_config.homepage.pageEditor);
                 break;
             case 'skyDriver':
-                /// bak
+                await td.clickBylocator(page_config.homepage.avator);
+                await td.waitpage(2000);
+                await td.clickBylocator(page_config.homepage.skyDriver);
                 break;
-            case 'setup':
-                /// bak
+            case 'setupCenter':
+                await td.clickBylocator(page_config.homepage.avator);
+                await td.waitpage(2000);
+                await td.clickBylocator(page_config.homepage.setupCenter)
                 break;
             case 'VIP':
-                /// bak
+                await td.clickBylocator(page_config.homepage.avator);
+                await td.waitpage(2000);
+                await td.clickBylocator(page_config.homepage.vipenter);
                 break;
             default:
                 console.log('the model is not found~')
@@ -123,7 +128,7 @@ class extend_method{
     //切换到不同的tab页(通用的)
     async switchTabpage(tabpage) {
         await td.clickBylocator(tabpage);
-        await td.waitpage(2000); 
+        await td.waitpage(1000); 
     }
 
     //实名弹窗
@@ -179,6 +184,7 @@ class extend_method{
         }
 
     }
+    
     //对预览的模板进行验证
     async checkPreviewResult(loc,expected){
         return td.getElementText(loc).then(function(val) {
@@ -276,6 +282,8 @@ class extend_method{
         siteinfo.push(summary);
         return siteinfo;
     }
+    
+
     //上传文件(针对本地测试的情况,eg:server:localhost)
     async uploadFile(loc,file){
         console.log('file path is ' + file);
@@ -288,6 +296,17 @@ class extend_method{
         await this.driver.setFileDetector(new remote.FileDetector());
         await els.sendKeys(file);
         await td.waitpage(1000);
+    }
+    //设置头像(用户图像或者网站头像)
+    async setAvatar(loc, file) {
+        await console.log("------------")
+        let path = await td.getSyspath();
+        let Bool = await td.isWindows();
+        let file = file;
+        let pic = (Bool) ? file : (file.replace(/\\/gi, '/'));
+        let imgsrc = path + pic;
+        console.log('img' + imgsrc);
+        await this.uploadRemoteFile(loc, imgsrc);
     }
     //设置网站名称
     async setsiteName(loc,data){
@@ -339,6 +358,53 @@ class extend_method{
             + "};" + " return res;"
         let summary = await td.execScript(script);  
         return summary; 
+    }
+    //给网站添加分组
+    async addsiteGroup(groupname){
+        await this.switchTabpage(page_config.mysite.operation.setup.Permissions.group.key);
+        await td.submitData([page_config.mysite.operation.setup.Permissions.group.name, page_config.mysite.operation.setup.Permissions.group.createbtn], groupname);
+        await td.waitpage(1000);
+    }
+    //向分组里添加用户
+    async addGroupMember(member){
+        await td.clickBylocator(page_config.mysite.operation.setup.Permissions.group.info.operation.edit);
+        if(Array.isArray(member)&& (member.length >1)){
+            for(let n of member){
+                console.log('n ' + n);
+                await td.submitData([page_config.mysite.operation.setup.Permissions.group.inputmember, page_config.mysite.operation.setup.Permissions.group.addbtn], n);
+            }            
+        }else{
+            await td.submitData([page_config.mysite.operation.setup.Permissions.group.inputmember, page_config.mysite.operation.setup.Permissions.group.addbtn], member);
+        }    
+        await td.clickBylocator(page_config.mysite.operation.setup.Permissions.group.backbtn);
+    }
+    //获取已有的分组
+    async getGroupInfo(){
+        let script = "var a = document.querySelectorAll('#authorize > form > div:nth-child(2) > div > select > option');"
+            + "return a;"
+        let info = await td.execScript(script);
+        return info;
+    }
+    //给分组添加不同的权限
+    async modifyPermission(){
+        let groupinfo = await this.getGroupInfo();
+        if(groupinfo != null && groupinfo != undefined){
+            for(let i in groupinfo){
+                console.log('groupinfo' + groupinfo[i]);
+            }           
+            await this.selectOption(page_config.mysite.operation.setup.Permissions.Rights.selectGroup.css, (groupinfo.length - 1));
+            await this.selectOption(page_config.mysite.operation.setup.Permissions.Rights.selectRight.css,2);           
+            await console.log('kkkk');
+            await td.clickBylocator(page_config.mysite.operation.setup.Permissions.Rights.addbtn);
+        }        
+    }
+    //选择options的数据
+    async selectOption(loc,index){
+        let script = "var a = document.querySelectorAll('" + loc + "');"
+            + "a[0].children[" + index + "].selected = 'true';"
+            + "a[0].dispatchEvent(new Event('change'));"
+        console.log(script);
+        await td.execScript(script);
     }
 
 	sendReport(){

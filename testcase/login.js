@@ -96,10 +96,9 @@ module.exports = async function loginTest() {
         step('#2.6 verify the account which bound telephone ', async function () {
 
             try {
-                let username = '15219498528';
-                let password = '123456';
-                //let url = 'http://release.keepwork.com/110111';
-               // await dev.driver.get(url);
+                let username = testdata.signIn.bindaccount.mobile;
+                let password = testdata.signIn.account.password;
+               
                 await td.waitpage(1000);
                 await td.clickBylocator(page_config.homepage.signinbtn, 2000);
                 await td.waitpage(2000);
@@ -115,8 +114,8 @@ module.exports = async function loginTest() {
         step('#2.7 verify the account which bound email', async function () {
 
             try {
-                let username = 'dslhmily@gmail.com';
-                let password = '123456';
+                let username = testdata.signIn.bindaccount.email;
+                let password = testdata.signIn.account.password;
                 await td.waitpage(1000);
                 await td.clickBylocator(page_config.homepage.signinbtn, 2000);
                 await td.waitpage(2000);
