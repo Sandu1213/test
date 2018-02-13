@@ -29,7 +29,7 @@ class extend_method{
     //进行登陆验证
     async login(username, password){
         await this.driver.getCurrentUrl().then(async function (url) {
-            console.log('current url is ' + url);            
+            await console.log('current url is ' + url);            
             try {
                 if (String(url).includes('home')) {
                     let locarr = [page_config.homepage.username, page_config.homepage.password, page_config.homepage.login];
@@ -184,6 +184,7 @@ class extend_method{
         }
 
     }
+    
     //对预览的模板进行验证
     async checkPreviewResult(loc,expected){
         return td.getElementText(loc).then(function(val) {
@@ -281,6 +282,8 @@ class extend_method{
         siteinfo.push(summary);
         return siteinfo;
     }
+    
+
     //上传文件(针对本地测试的情况,eg:server:localhost)
     async uploadFile(loc,file){
         console.log('file path is ' + file);
@@ -293,6 +296,17 @@ class extend_method{
         await this.driver.setFileDetector(new remote.FileDetector());
         await els.sendKeys(file);
         await td.waitpage(1000);
+    }
+    //设置头像(用户图像或者网站头像)
+    async setAvatar(loc, file) {
+        await console.log("------------")
+        let path = await td.getSyspath();
+        let Bool = await td.isWindows();
+        let file = file;
+        let pic = (Bool) ? file : (file.replace(/\\/gi, '/'));
+        let imgsrc = path + pic;
+        console.log('img' + imgsrc);
+        await this.uploadRemoteFile(loc, imgsrc);
     }
     //设置网站名称
     async setsiteName(loc,data){

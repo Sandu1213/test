@@ -35,19 +35,9 @@ module.exports = async function siteSetupTest(){
         });
 
         step('#4.9.2.1 modify the common settings - avatar', async function () {
-            let loc = page_config.mysite.operation.setup.common.icon_input;            
-            let path = await td.getSyspath();
-            let platform = await td.isWindows();
-            console.log("platform is "+ platform +";path is " + path);
-            
-            let imgsrc = '';
-            if(platform){
-                imgsrc = path + testdata.sites.setup1.windowicon_path;
-            }else{
-                imgsrc = path + testdata.sites.setup1.linuxicon_path;
-            }            
-            
-            await ext.uploadRemoteFile(loc,imgsrc);
+            let loc = page_config.mysite.operation.setup.common.icon_input; 
+            let file = testdata.sites.setup1.siteicon;
+            await ext.setAvatar(loc, file);            
             await td.clickBylocator(page_config.mysite.operation.setup.common.icon_save_btn);
             await td.waitpage(2000);
             await td.clickBylocator(page_config.mysite.operation.setup.common.savebtn);

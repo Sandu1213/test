@@ -264,6 +264,7 @@ var setupCenter = {
 		"key": { "css":"#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(1)"},
 		"title": { "css":"#userCenterSubPage > div > div:nth-child(1) > div.panel-heading.ng-scope"},
 		"inputavatar": { "css": "#userCenterSubPage > div > div:nth-child(1) > div.panel-body > div.col-md-3.preview-zone > p > input[type='file']" },
+		"saveavatarbtn":{"css":"a#finish"},
 		"nickname": { "css":"input#displayName"},
 		"sex":{
 			"male": { "css":"input#inlineRadio1"},
@@ -272,7 +273,11 @@ var setupCenter = {
 		},
 		"position": { "css": "input#location" },
 		"intro": { "css": "#data-form > div:nth-child(5) > div > textarea" },
-		"Savebtn": { "css": " button[ng-click*='saveProfile']" }
+		"Savebtn": { "css": " button[ng-click*='saveProfile']" },
+		"saveResult": { "css": "div#messageTipConentId"},
+		"notice": { "css":"#data-form > div:nth-child(6) > div > p:nth-child(1)"},
+		"overPos": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(2)" },
+		"overIntro": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(3)" },
 	},
 	"account":{
 		"key": { "css": "#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(2)" },
