@@ -407,10 +407,11 @@ module.exports = async function domainTest() {
                 await td.waitpage(6000);
                 await td.clickBylocator(page_config.tmppage.course.contains.course.agree_btn);
                 await td.waitpage(1000);
-                let a = await td.getElement();
-                if(a){
-                    
-                }
+                //--检验oauth跳转是否成功
+                // let a = await td.getElement(xxx);
+                // if(!(String(a).length > 0)){
+                //    console.log('switch failed, please check it ');
+                // }                
                 await dev.driver.switchTo().window(current_window);
                 await td.waitpage(1000);
                 await td.switchToIFrame(td.getElement(page_config.tmppage.course.contains.course.iframe));
