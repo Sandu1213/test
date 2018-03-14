@@ -60,24 +60,24 @@ class extend_method{
     }
 
     //进行注册
-    async SignUp(username,password){
+    async SignUp(username,password,cellphone){
        try {
-            //操作的元素及数据
-            let locarr = [page_config.signUp.username, page_config.signUp.password, page_config.signUp.signupbtn];
-            let dataarr = [username, password];
-            if (username == '' && password == '') {
-                await td.clickBylocator(page_config.signUp.signupbtn, 1000);
-                await td.waitpage(1000);
-            }else{
-                await td.submitData(locarr, dataarr, 1000);
-                await td.waitpage(2000); 
-            }
+            let locarr = [page_config.signUp.username, page_config.signUp.password, page_config.signUp.cellphone, page_config.signUp.signupbtn];
+            let dataarr = [username, password, cellphone];
+            await td.submitData(locarr, dataarr, 1000);
+            await td.waitpage(2000);                                   
        } catch (error) {
            console.error(error);
        }
        
     }
-
+    //注册页面获取手机验证码
+    async getSMScode(username, password, cellphone){
+        let locarr = [page_config.signUp.username, page_config.signUp.password, page_config.signUp.cellphone, page_config.signUp.sendSMScode];
+        let dataarr = [username, password, cellphone];
+        await td.submitData(locarr, dataarr, 1000);
+    }
+    
     //退出登陆
     async logout(){
         await td.clickBylocator(page_config.homepage.avator);
@@ -85,7 +85,17 @@ class extend_method{
         await td.clickBylocator(page_config.homepage.exit);
         await td.waitpage(2000);
     }
-    
+    //手机验证码页面(只针对涉及绑定，解绑页面)
+    async bindpage(smscode){
+        let locs = [page_config.setupCenter.security.bindTab.mobile.piccodetext, page_config.setupCenter.security.bindTab.mobile.sendSMSbtn];
+        let codeStr = await td.getAttValue(page_config.setupCenter.security.bindTab.mobile.imageCode, 'Src');
+        let piccode = new String(codeStr).substr('-4');
+        console.log("piccode is " + piccode);        
+        await td.submitData(locs, piccode);   //获取SMScode
+        await td.waitpage(1000);
+        locs = [page_config.setupCenter.security.bindTab.mobile.smscode, page_config.setupCenter.security.bindTab.mobile.Confirmbtn];        
+        await td.submitData(locs,smscode);    //进行提交操作
+    }
     //从个人头像位置切换菜单
     async switchMenu(menuname){
         switch (menuname) {
@@ -273,13 +283,11 @@ class extend_method{
     async getsiteSetting(){        
         let name = await td.getAttValue(page_config.mysite.operation.setup.common.sitename, 'value'); 
         let address = await td.getElementText(page_config.mysite.operation.setup.common.siteAddress);     
-        let introdata = await td.getAttValue(page_config.mysite.operation.setup.common.siteintro, 'value');
-        let summary = await this.getsiteLabels();
+        let introdata = await td.getAttValue(page_config.mysite.operation.setup.common.siteintro, 'value');        
         let siteinfo = [];
         siteinfo.push(name);
         siteinfo.push(address);
-        siteinfo.push(introdata);
-        siteinfo.push(summary);
+        siteinfo.push(introdata);       
         return siteinfo;
     }
     
@@ -298,11 +306,11 @@ class extend_method{
         await td.waitpage(1000);
     }
     //设置头像(用户图像或者网站头像)
-    async setAvatar(loc, file) {
+    async setAvatar(loc, content) {
         await console.log("------------")
         let path = await td.getSyspath();
         let Bool = await td.isWindows();
-        let file = file;
+        let file = content;
         let pic = (Bool) ? file : (file.replace(/\\/gi, '/'));
         let imgsrc = path + pic;
         console.log('img' + imgsrc);
@@ -349,16 +357,16 @@ class extend_method{
     async selectVip(level){
         await td.clickBylocator(level);
     }
-    //获取网站已有标签信息
-    async getsiteLabels(){
-        let script = "var t = document.querySelectorAll('#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div');"
-            + "var res = [];"
-            + "for(let item of t){"
-            + "   res.push(item.innerText);"
-            + "};" + " return res;"
-        let summary = await td.execScript(script);  
-        return summary; 
-    }
+    // //获取网站已有标签信息  --功能已经去掉，可以移除
+    // async getsiteLabels(){
+    //     let script = "var t = document.querySelectorAll('#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div');"
+    //         + "var res = [];"
+    //         + "for(let item of t){"
+    //         + "   res.push(item.innerText);"
+    //         + "};" + " return res;"
+    //     let summary = await td.execScript(script);  
+    //     return summary; 
+    // }
     //给网站添加分组
     async addsiteGroup(groupname){
         await this.switchTabpage(page_config.mysite.operation.setup.Permissions.group.key);

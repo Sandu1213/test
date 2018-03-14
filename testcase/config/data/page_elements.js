@@ -22,9 +22,9 @@ var homepage = {
 }
 
 var personalpage = {
-	"newwebsite_enter": { "css": "div[ng-click*='goNewWebsitePage()']"},
-	"siteManagement_enter": { "css": "div[ng-click*='goWebsitePage()']"},
-	"editer_enter": { "css": "div[ng-click*='goEditorPage()']"},
+	"newwebsite_enter": { "css": "a.item[href$='newWebsite']"},
+	"siteManagement_enter": { "css": "a.item[href*='websiteManager']"},
+	"editer_enter": { "css": "a.item[href*='wikieditor']"},
 	"ownersite":{}
 }
 
@@ -39,7 +39,7 @@ var realNamepage = {
 
 var tmppage = {
 	"personal":{
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[1]/a"},
+		"key": { "css": "#userCenterSubPage > div > div.col-md-10.main-content > div.panel-body > div.step-content.clearfix > div:nth-child(1) > div > ul > li:nth-child(1) > a" },
 		"contains":{
 			"blank":{
 				"main": { "css":"img[ng-src$='wiki_blank_template.png']"},
@@ -68,7 +68,7 @@ var tmppage = {
 		}
 	},
 	"company":{
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[2]/a" },
+		"key": { "css": "#userCenterSubPage > div > div.col-md-10.main-content > div.panel-body > div.step-content.clearfix > div:nth-child(1) > div > ul > li:nth-child(2) > a" },
 		"contains": {
 			"company1": {
 				"main": { "css": "img[ng-src$='wiki_company1_template.jpg']" },
@@ -85,7 +85,7 @@ var tmppage = {
 		}
 	},
 	"group": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[3]/a" },
+		"key": { "css": "#userCenterSubPage > div > div.col-md-10.main-content > div.panel-body > div.step-content.clearfix > div:nth-child(1) > div > ul > li:nth-child(3) > a" },
 		"contains": {
 			"group": {
 				"main": { "css": "img[ng-src$='wiki_organization_template.png']" },
@@ -96,7 +96,7 @@ var tmppage = {
 		}
 	},
 	"game": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[4]/a" },
+		"key": { "css": "#userCenterSubPage > div > div.col-md-10.main-content > div.panel-body > div.step-content.clearfix > div:nth-child(1) > div > ul > li:nth-child(4) > a" },
 		"contains": {
 			"game": {
 				"main": { "css": "img[ng-src$='wiki_game_template.jpg']" },
@@ -107,7 +107,7 @@ var tmppage = {
 		}
 	},
 	"course": {
-		"key": { "xpath": "//*[@id='userCenterSubPage']/div/div[1]/div[2]/div[1]/div[1]/div/ul/li[5]/a" },
+		"key": { "css": "#userCenterSubPage > div > div.col-md-10.main-content > div.panel-body > div.step-content.clearfix > div:nth-child(1) > div > ul > li:nth-child(5) > a" },
 		"contains": {
 			"course": {
 				"main": { "css": "img[ng-src$='img_1509532234890.png']"},
@@ -134,6 +134,7 @@ var tmppage = {
 }
 
 var mysite = {
+	"key": { "css": "li:nth-child(2) > div > div.panel-body > ul > a" },
 	"create": { "css":"a[ng-click$='goNewWebsitePage()']"},
 	"siteNum": { "css":"div.panel-body.website-flex > h3 > span > span"},
 	"type": "span[class='iconfont icon-lock']",
@@ -151,17 +152,9 @@ var mysite = {
 				"icon_save_btn": { "css": "a#finish"},
 				"sitename": { "css": "input#webName"},
 				"siteAddress": { "css": "#common > div > div:nth-child(4) > div.col-sm-5 > p"},
-				"siteintro": { "css": "#intro"},
-				"sitelabels": { 
-					"input": { "css": "div.col-sm-5 > div >input#tagInput"},
-					"overinput": { "css":"#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-8.add-label > input:nth-child(2)"},
-					"addbtn": { "css":"div.col-sm-4.btn.btn-primary.ng-binding[ng-click*='addTag']"},
-					"summary": { "css": "#common > div > div:nth-child(6) > div:nth-child(2) > div.col-sm-12.labels-box > div"},
-					"remove": { "css":"span[ng-click*='removeTag(tag)']"},
-					"check": { "css":"#common > div > div:nth-child(6) > div.col-sm-5.text-danger.control-label.ng-binding"}
-				},
-				"notice": { "css":"#common > div > div:nth-child(7) > div >p"},
-				"savebtn": { "css": "#common > div > div:nth-child(7) > div > button[ng-click='modifyWebsite()']"},
+				"siteintro": { "css": "#intro"},				
+				"notice": { "css":"#common > div > div > div > p.text-danger"},
+				"savebtn": { "css": "#common > div > div > div > button[ng-click='modifyWebsite()']"},
 				"saveResult": { "css":"div#messageTipConentId"}
 			},
 			"datasource": {				
@@ -279,24 +272,36 @@ var setupCenter = {
 		"overPos": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(2)" },
 		"overIntro": { "css": "#data-form > div:nth-child(6) > div > p:nth-child(3)" },
 	},
-	"account":{
+	"security":{
 		"key": { "css": "#__UserSitePageContent__ > div > div > div.col-md-2.subnav.col-sm-3 > ul > li:nth-child(1) > div > div.panel-body > ul > a:nth-child(2)" },
-		"ChangepwdTab":{
+		"pwdTab":{
 			"key": { "css":"a[href='#change']"},
 			"oldpwd": { "css": "input#old" },
 			"newpwd": { "css": "input#new" },
 			"repeatpwd": { "css": "input#reNew" },
 			"modifybtn": { "css": "button[ng-click='modifyPassword()']" },
 		},
-		"BindTab":{
+		"bindTab":{
 			"key": { "css": "a[href^='#verify']" },
 			"email": { "css": "" },
-			"mobile": { "css": "" },
+			"mobile": {
+				"text":{"css": "input#phone" },
+				"unbindbtn": { "css": "#verify > form > div:nth-child(4) > div.col-sm-3 > div.btn.btn-block.btn-outline"},
+				"bindbtn": { "css": "#verify > form > div:nth-child(4) > div.col-sm-3 > div.btn.btn-block.btn-primary"},
+				"piccodetext": { "css":"input[ng-model*='imageCode']"},
+				"imageCode": { "css":"div.col-sm-3.captcha > img"},
+				"updatePic": { "css": "span[ng-click='refreshImageCode()']" },
+				"smscode": { "css": "input[ng-model='smsCode']" },
+				"sendSMSbtn": { "css":"div[ng-click$='bindPhone()']" },
+				"Confirmbtn": { "css": "button[ng-click$='confirmPhoneBind()']" }
+			},
 			"QQ": { "css": "" },
 			"wechat": { "css": "" },
 			"blog": { "css": "" },
 			"github": { "css": "" },
-		}
+		},
+		"Result": { "css":"div#messageTipConentId" }
+
 	},
 	"tiding":{},
 	"attention":{},
@@ -339,15 +344,19 @@ var signIn = {
 
 var signUp = {
 	"username":{"name":"username"},
-	"password": { "css": "input[ng-model='password']"},
-	"policyinfo":{"linkText":""},
+	"password": {"css": "input[ng-model='password']"},
+	"cellphone": {"css":"input[ng-model$='phone']"},
+	"smsCode": {"css":"input[ng-model$='smsCode']"},
+	"sendSMScode": { "css": "div[ng-click$='sendSMSCode()']" },
+	"policyinfo": { "linkText":"a[ng-click$='goLicense()']"},
 	"signupbtn": { "css":"a[ng-click*='register()']"},
 	"checktext": "div.form-group.text-danger.ng-binding",
+	"checkrepeatinfo":"#__UserSitePageContent__ > div > div > form > div:nth-child(1)",
 	"repeattext":"div.text-danger.ng-binding",
 	"success": { "css": "img[ng-src*='wiki_success.png']" },
 	"backbtn": { "css":"div[ng-click='goBack()']"},
 	"gotohome":{"css":"div[ng-click='goUserHome()']"}
 }
 
-module.exports = { signUp, signIn, personalpage, tmppage, homepage, realNamepage, mysite, purchaseVip, setupCenter};
+module.exports = { signUp, signIn, personalpage, tmppage, homepage,realNamepage, mysite, purchaseVip, setupCenter};
 

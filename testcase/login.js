@@ -137,7 +137,7 @@ module.exports = async function loginTest() {
                 await ext.login(testdata.signIn.account.username, testdata.signIn.account.password);
                 await td.waitpage(5000);
                 await td.getElement(page_config.signIn.signsuccess);
-                await ext.logout();
+                //await ext.logout();
             } catch (error) {
                 console.log(error);
             }
@@ -174,6 +174,10 @@ module.exports = async function loginTest() {
 
         });
 
+        after(async function () {
+            await td.waitpage(2000);
+            await ext.logout();
+        });
         
     
     });

@@ -26,7 +26,7 @@ module.exports = async function userCenterTest() {
        
         step('#5.1.1 modify user profile - avatar', async function () {
             //await ext.switchTabpage(page_config.setupCenter.profile.key); 
-            console.log('kkkkkkkkkkkkkkkkkkkkkk');
+           
             let loc = page_config.setupCenter.profile.inputavatar;           
             let file = testdata.setupcenter.profile.avatar;   
             let path = await td.getSyspath();
@@ -108,7 +108,7 @@ module.exports = async function userCenterTest() {
             //验证正常的位置情况
             data = testdata.setupcenter.profile.position.valid;
             await td.submitData(profilepage, data);
-            await td.waitpage(1000);
+            await td.waitpage(2000);
             await td.getElementText(page_config.setupCenter.profile.saveResult).then(function (values) {
                 td.checkResult('contain', values, testdata.setupcenter.profile.checkRes.savesuccess);
             }); 
@@ -128,32 +128,104 @@ module.exports = async function userCenterTest() {
             await td.submitData(profilepage, data);
             await td.waitpage(1000);
             await td.getElementText(page_config.setupCenter.profile.overIntro).then(function (values) {
-                td.checkResult('contain', values, testdata.setupcenter.profile.checkRes.overPosition);
+                td.checkResult('contain', values, testdata.setupcenter.profile.checkRes.overIntro);
             });
             //验证正常的个人简介情况
             data = testdata.setupcenter.profile.intro.valid;
             await td.submitData(profilepage, data);
-            await td.waitpage(1000);
+            await td.waitpage(2000);
             await td.getElementText(page_config.setupCenter.profile.saveResult).then(function (values) {
                 td.checkResult('contain', values, testdata.setupcenter.profile.checkRes.savesuccess);
             }); 
         });
 
-        step('#5.2 check the profile info ', async function () {
+        // step('#5.2 check the profile info ', async function () {
 
+        // });
+
+        //详细验证还可以补充（如：输入值的验证)
+        step('#5.3 the new password and check ', async function () {
+            await td.clickBylocator(page_config.setupCenter.security.key);
+            let locs = [page_config.setupCenter.security.pwdTab.oldpwd, page_config.setupCenter.security.pwdTab.newpwd,
+                page_config.setupCenter.security.pwdTab.repeatpwd, page_config.setupCenter.security.pwdTab.modifybtn];
+            let data = [testdata.setupcenter.security.pwdTab.info.oldpwd.real, testdata.setupcenter.security.pwdTab.info.newpwd.vaild, testdata.setupcenter.security.pwdTab.info.repwd.vaild];
+            await td.submitData(locs,data);
+            await td.getElementText(page_config.setupCenter.security.Result).then(function (values) {
+                td.checkResult('contain', values, testdata.setupcenter.security.pwdTab.notices.success);
+            });
+            //验证修改密码是否生效
+            await ext.logout();
+            await ext.login(testdata.signIn.account.username, testdata.setupcenter.security.pwdTab.info.oldpwd.real);
+            return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                td.checkResult('equal', actval, testdata.signIn.expectMsg.invalidpassword);
+            });        
         });
 
-        step('#5.3 modify the password  and check ', async function () {
-
+        step('#5.4 the old password and check ', async function () {
+            await ext.login(testdata.signIn.account.username, testdata.setupcenter.security.pwdTab.info.newpwd.vaild);
+            await ext.switchMenu('setupCenter');
+            await td.clickBylocator(page_config.setupCenter.security.key);
+            let locs = [page_config.setupCenter.security.pwdTab.oldpwd, page_config.setupCenter.security.pwdTab.newpwd,
+                page_config.setupCenter.security.pwdTab.repeatpwd, page_config.setupCenter.security.pwdTab.modifybtn];
+            let data = [testdata.setupcenter.security.pwdTab.info.newpwd.vaild, testdata.setupcenter.security.pwdTab.info.oldpwd.real, testdata.setupcenter.security.pwdTab.info.oldpwd.real];
+            await td.submitData(locs, data);
+            await td.getElementText(page_config.setupCenter.security.Result).then(function (values) {
+                td.checkResult('contain', values, testdata.setupcenter.security.pwdTab.notices.success);
+            });
+            await ext.logout();
+            //验证修改密码是否生效
+            await ext.login(testdata.signIn.account.username, testdata.setupcenter.security.pwdTab.info.newpwd.vaild);
+            await td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                td.checkResult('equal', actval, testdata.signIn.expectMsg.invalidpassword);
+            });  
+            await ext.login(testdata.signIn.account.username, testdata.setupcenter.security.pwdTab.info.oldpwd.real);    
+            await td.waitpage(1000);
+            await td.getElement(page_config.signIn.signsuccess);   
+            await ext.logout();            
         });
 
-        step('#5.4 modify the password ', async function () {
-
+        step('#5.5 binding the telephone and unbind ', async function () {
+            //登入绑定手机号的账户
+            await td.clickBylocator(page_config.homepage.signinbtn);
+            await ext.login(testdata.signIn.bindaccount.mobile,testdata.signIn.account.password);
+            await ext.switchMenu('setupCenter');
+            await td.clickBylocator(page_config.setupCenter.security.key);
+            await td.clickBylocator(page_config.setupCenter.security.bindTab.key);
+            //先解绑
+            await td.clickBylocator(page_config.setupCenter.security.bindTab.mobile.unbindbtn);
+            await ext.bindpage(testdata.setupcenter.security.bindTab.mobile.smsCode);
+            //解绑成功后验证
+            await ext.logout();
+            await ext.login(testdata.signIn.bindaccount.mobile, testdata.signIn.account.password);
+            return td.getElementText(page_config.homepage.checktext).then(function (actval) {
+                td.checkResult('equal', actval, testdata.signIn.expectMsg.invalidaccount);
+            });             
         });
+
+        step('#5.6 binding the telephone and unbind ', async function () {
+            //登入需要重新绑定的账户
+            await ext.login(testdata.signIn.bindaccount.email, testdata.signIn.account.password);
+            await ext.switchMenu('setupCenter');
+            await td.clickBylocator(page_config.setupCenter.security.key);
+            await td.clickBylocator(page_config.setupCenter.security.bindTab.key);
+            //再重新绑定
+            let locs = [page_config.setupCenter.security.bindTab.mobile.text, page_config.setupCenter.security.bindTab.mobile.bindbtn];
+            let data = testdata.setupcenter.security.bindTab.mobile.phoneNum;
+            console.log('data is ' + data);
+            await td.submitData(locs, data);
+            await td.waitpage(1000);
+            await ext.bindpage(testdata.setupcenter.security.bindTab.mobile.smsCode);
+            //绑定成功后验证
+            await ext.logout();
+            await ext.login(testdata.signIn.bindaccount.mobile, testdata.signIn.account.password);
+            await td.waitpage(2000);
+            await td.getElement(page_config.signIn.signsuccess);     
+        });
+
 
         after(async function () {
-            // await td.waitpage(1000);
-            // await ext.logout();
+            await td.waitpage(1000);
+            await ext.logout();
         });
     });
 };

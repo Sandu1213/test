@@ -67,14 +67,14 @@ class driver_method{
      * @back  --- 返回对应的元素值
      */
     async getElementsText(locator, sleepTime = 1000) {
-
         try {
             let driver = this.driver;
             let elsTxt = [];
             await this.getElement(locator).then(async function (elements) {
-                if (Array.isArray(elements)) {
+                if (Array.isArray(elements)) {                   
                     for (let i = 0; i < elements.length; i++) {
-                        let txt = await elements[i].getText().then(function (values) {
+                        await console.log(elements[i].getText());
+                        let txt = await elements[i].getText().then(function (values) {                           
                             return values;
                         });                                               
                         await driver.sleep(sleepTime);

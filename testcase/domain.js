@@ -33,7 +33,9 @@ module.exports = async function domainTest() {
         step('#3.1.1  check blank-templates  ', async function () {
 
             try {
-                await ext.enterDomain();                
+                await ext.switchMenu('siteManagement');
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(3000);               
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.blank.select,
                     page_config.tmppage.personal.contains.blank.preview);
@@ -46,8 +48,6 @@ module.exports = async function domainTest() {
                 await td.waitpage(2000);
                 await td.closeNewwindow();                
                 await td.switchToDefaultWindow(current_window);
-                
-                
             } catch (error) {
                 console.log(error);
             }
@@ -76,10 +76,12 @@ module.exports = async function domainTest() {
 
         });
 
-        step('#3.2.1 check basic-templates  ', async function () {
+        step('#3.2.1 check basic-templates ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000); 
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.basic.select,
                     page_config.tmppage.personal.contains.basic.preview);
@@ -120,7 +122,9 @@ module.exports = async function domainTest() {
         step('#3.3.1 check resume-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.resume.select,
                     page_config.tmppage.personal.contains.resume.preview);
@@ -161,7 +165,9 @@ module.exports = async function domainTest() {
         step('#3.4.1 check vip-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.personal.key, page_config.tmppage.personal.contains.vip.select,
                     page_config.tmppage.personal.contains.vip.preview);
@@ -203,7 +209,10 @@ module.exports = async function domainTest() {
         step('#3.5.1 check company1-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
+
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company1.select,
                     page_config.tmppage.company.contains.company1.preview);
@@ -242,7 +251,9 @@ module.exports = async function domainTest() {
         step('#3.6.1 check company2-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.company.key, page_config.tmppage.company.contains.company2.select,
                     page_config.tmppage.company.contains.company2.preview);
@@ -282,7 +293,9 @@ module.exports = async function domainTest() {
         step('#3.7.1 check group-templates  ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.group.key, page_config.tmppage.group.contains.group.select,
                     page_config.tmppage.group.contains.group.preview);                
@@ -321,7 +334,9 @@ module.exports = async function domainTest() {
         step('#3.8.1 check game-templates ', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = await dev.driver.getWindowHandle();
                 await ext.tmppreview(page_config.tmppage.game.key, page_config.tmppage.game.contains.game.select,
                     page_config.tmppage.game.contains.game.preview);                
@@ -361,7 +376,9 @@ module.exports = async function domainTest() {
         step('#3.9 create course-templates site', async function () {
 
             try {
-                await ext.enterDomain();
+                await td.clickBylocator(page_config.mysite.key);
+                await td.clickBylocator(page_config.mysite.create);
+                await td.waitpage(2000);
                 let current_window = dev.driver.getWindowHandle();
                 let sitename = 'course' + String(com.GenStr(3, 'alphanumeric')).toLowerCase();
                 await td.clickBylocator(page_config.tmppage.course.key);
@@ -390,6 +407,10 @@ module.exports = async function domainTest() {
                 await td.waitpage(6000);
                 await td.clickBylocator(page_config.tmppage.course.contains.course.agree_btn);
                 await td.waitpage(1000);
+                let a = await td.getElement();
+                if(a){
+                    
+                }
                 await dev.driver.switchTo().window(current_window);
                 await td.waitpage(1000);
                 await td.switchToIFrame(td.getElement(page_config.tmppage.course.contains.course.iframe));
